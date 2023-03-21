@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/DetalhesEventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
+
+import 'EventoAvaliacao.dart';
 
 class DetalhesUnidadeCurricular extends StatefulWidget {
   UnidadeCurricular x;
@@ -113,9 +116,10 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: 2,
+                itemCount: x.eventosDeAvaliacao.length,
                 itemBuilder: (context, index) {
                   Color borda = Colors.grey;
+                  EventoAvaliacao a = x.eventosDeAvaliacao[index];
 
                   return SizedBox(
                     height: 65,
@@ -127,21 +131,30 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                         title: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: Row(
-                            children: const [
+                            children: [
                               Text(
-                                "05/01/2023",
+                                "${a.dateTime.day}/${a.dateTime.month}/${a.dateTime.year}",
                                 style: TextStyle(fontSize: 14),
                               ),
                               SizedBox(width: 20,),
                               Text(
-                                "Ficha prática",
+                                "${a.tipoDeEvento}",
                                 style: TextStyle(fontSize: 14),
                               )
                             ],
                           ),
                         ),
                         onTap: () {
-                          setState(() {});
+                          setState(() {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetalhesEventoAvaliacao(
+                                  eventoAvaliacao: a,
+                                ),
+                              ),
+                            );
+                          });
                         },
                       ),
                     ),
