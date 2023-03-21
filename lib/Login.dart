@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Pages.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -21,64 +22,116 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
+    
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages()));
     //final authService = AuthService();
     //try {
-      //final token = await authService.login(email, password);
-      // Login bem-sucedido, salvar o token e navegar para a próxima tela
+    //final token = await authService.login(email, password);
+    // Login bem-sucedido, salvar o token e navegar para a próxima tela
     //} catch (e) {
-      // Login falhou, exibir mensagem de erro
+    // Login falhou, exibir mensagem de erro
     //}
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
       body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFormField(
-                controller: _emailController,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  labelText: 'E-mail',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'E-mail é obrigatório';
-                  }
-                  return null;
-                },
+        child: Column(
+          children: [
+            const SizedBox(height: 150,),
+            Title(
+              color: Colors.black,
+              child: const Text("OnTrack", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),),
+            ),
+            const SizedBox(height: 100,),
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "WorkSansLight",
+                          fontSize: 15.0),
+                      filled: true,
+                      fillColor: Colors.white24,
+                      hintText: "E-mail",
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(90.0)),
+                          borderSide:
+                              BorderSide(color: Colors.white24, width: 0.5)),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (text) {
+                      if (text!.isEmpty || !text.contains("@")) {
+                        return "E-mail inválido!";
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30.0,
+                  ),
+                  TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "WorkSansLight",
+                          fontSize: 15.0),
+                      filled: true,
+                      fillColor: Colors.white24,
+                      hintText: "Senha",
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(90.0)),
+                          borderSide:
+                              BorderSide(color: Colors.white24, width: 0.5)),
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    obscureText: true,
+                    validator: (text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Senha inválida!";
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    height: 80,
+                    width: 80,
+                    child: FloatingActionButton(
+                      backgroundColor: Colors.red,
+                      child: const Text(
+                        "Entrar",
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      onPressed: () {
+                        _submit();
+                      },
+                    ),
+                  ),
+                ],
               ),
-              TextFormField(
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: 'Senha',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Senha é obrigatória';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    _submit();
-                  }
-                },
-                child: Text('Entrar'),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
