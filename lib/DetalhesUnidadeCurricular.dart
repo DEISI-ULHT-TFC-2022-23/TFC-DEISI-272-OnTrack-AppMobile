@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/DetalhesEventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
@@ -120,6 +121,12 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 itemBuilder: (context, index) {
                   Color borda = Colors.grey;
                   EventoAvaliacao a = x.eventosDeAvaliacao[index];
+                  Icon realizado;
+                  if(a.getRealizado()){
+                    realizado = Icon(Icons.check, color: Colors.green,);
+                  }else{
+                    realizado = Icon(Icons.close, color: Colors.red,);
+                  }
 
                   return SizedBox(
                     height: 65,
@@ -132,6 +139,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                           padding: const EdgeInsets.symmetric(vertical: 2),
                           child: Row(
                             children: [
+                              realizado,
                               Text(
                                 "${a.dateTime.day}/${a.dateTime.month}/${a.dateTime.year}",
                                 style: TextStyle(fontSize: 14),

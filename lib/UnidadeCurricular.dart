@@ -18,7 +18,7 @@ class UnidadeCurricular {
             ects: 5),
         tipoDeEvento: "Projeto",
         metodoDeEntrega: "Drop Project",
-        dateTime: DateTime(2023, 5, 15, 18, 30)),
+        dateTime: DateTime(2023, 3, 15, 18, 30)),
     EventoAvaliacao(
         unidadeCurricular: UnidadeCurricular(
             nome: "Computação Móvel",
@@ -39,4 +39,9 @@ class UnidadeCurricular {
       required this.ano,
       required this.semestre,
       required this.ects});
+
+  List getEventos(){
+    eventosDeAvaliacao.sort((a,b) => a.data.compareTo(b.data));
+    return eventosDeAvaliacao;
+  }
 }
