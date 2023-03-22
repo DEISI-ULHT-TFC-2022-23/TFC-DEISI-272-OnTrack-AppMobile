@@ -14,7 +14,7 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        itemCount: 4,
+        itemCount: 3,
         itemBuilder: (context, index) {
           Color borda = Colors.grey;
           UnidadeCurricular aux = UnidadeCurricular(

@@ -4,5 +4,5 @@ class User{
   String foto;
   late List UnidadesCurriculares = [];
 
-  User(this.nome, this.email, this.foto, this.UnidadesCurriculares);
+  User(this.nome, this.email, this.foto);
 }

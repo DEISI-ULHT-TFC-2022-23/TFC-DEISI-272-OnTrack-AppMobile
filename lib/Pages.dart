@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/Dashboard.dart';
 import 'package:tfc_ontack/UnidadesCurriculares.dart';
+import 'package:tfc_ontack/User.dart';
 
 import 'Avaliacoes.dart';
 import 'Definicoes.dart';
@@ -41,6 +42,8 @@ class _PagesState extends State<Pages> {
     });
   }
 
+  static User user = User("Rafael Paulo", "a22001810@alunos.ulht.pt", "images/Me.jpg");
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +65,11 @@ class _PagesState extends State<Pages> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text("Rafael Paulo"),
-              accountEmail: Text("a22001810@alunos.ulht.pt"),
+              accountName: Text(user.nome),
+              accountEmail: Text(user.email),
               currentAccountPicture: CircleAvatar(
                 radius: 30.0,
-                backgroundImage: Image.asset('images/Me.jpg').image,
+                backgroundImage: Image.asset(user.foto).image,
                 backgroundColor: Colors.transparent,
               ),
             ),
