@@ -67,6 +67,11 @@ class _PagesState extends State<Pages> {
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.black, Colors.red],
+                ),
+              ),
               accountName: Text(user.nome),
               accountEmail: Text(user.email),
               currentAccountPicture: CircleAvatar(
