@@ -18,7 +18,7 @@ class Pages extends StatefulWidget {
 class _PagesState extends State<Pages> {
   int _selectedIndex = 0;
 
-  static User user = User("Rafael Paulo", "a22001810@alunos.ulht.pt", "images/Me.jpg",3,140);
+  static User user = User("Rafael Paulo", "a22001810@alunos.ulht.pt", "Engenharia Informática","images/Me.jpg",3,140);
 
   static final List<Widget> _widgetOptions = <Widget>[
     Dashboard(),

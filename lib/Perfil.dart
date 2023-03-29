@@ -21,9 +21,9 @@ class _PerfilState extends State<Perfil> {
       body: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.red, Colors.black],
+                colors: [Colors.black, Colors.red],
               ),
             ),
             child: Container(
@@ -37,12 +37,12 @@ class _PerfilState extends State<Perfil> {
                     backgroundImage: Image.asset(user.foto).image,
                     radius: 60,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Text(
                     user.nome,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                       color: Colors.white,
                     ),
@@ -53,28 +53,55 @@ class _PerfilState extends State<Perfil> {
           ),
           Container(
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                vertical: 30,
+              padding: const EdgeInsets.symmetric(
+                vertical: 20,
                 horizontal: 16,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     "Detalhes",
                     style: TextStyle(
                       color: Colors.redAccent,
                       fontStyle: FontStyle.normal,
-                      fontSize: 28,
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 10,),
-                  Text("Email: ${user.email}"),
-                  SizedBox(height: 10,),
-                  Text("Ano: ${user.ano}º"),
-                  SizedBox(height: 10,),
-                  Text("Ects: ${user.ects}/180"),
+                  const SizedBox(height: 30,),
+                  Row(
+                    children: [
+                      const Icon(Icons.email, color: Colors.grey,),
+                      const SizedBox(width: 5,),
+                      Text("Email: ${user.email}"),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      const Icon(Icons.calendar_today, color: Colors.grey,),
+                      const SizedBox(width: 5,),
+                      Text("Ano: ${user.ano}º"),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      const Icon(Icons.school, color: Colors.grey,),
+                      const SizedBox(width: 5,),
+                      Text("Curso: ${user.curso}"),
+                    ],
+                  ),
+                  const SizedBox(height: 10,),
+                  Row(
+                    children: [
+                      const Icon(Icons.grade, color: Colors.amber,),
+                      const SizedBox(width: 5,),
+                      Text("Ects: ${user.ects}/180"),
+                    ],
+                  ),
 
                 ],
               ),
