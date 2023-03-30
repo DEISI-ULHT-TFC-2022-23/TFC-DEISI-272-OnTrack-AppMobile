@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/Dashboard.dart';
 import 'package:tfc_ontack/UnidadesCurriculares.dart';
 import 'package:tfc_ontack/User.dart';
+
 
 import 'Avaliacoes.dart';
 import 'Definicoes.dart';
@@ -51,6 +53,7 @@ class _PagesState extends State<Pages> {
     return Scaffold(
       appBar: AppBar(
         title: _widgetTitle.elementAt(_selectedIndex),
+        backgroundColor: primary,
         actions: [
           IconButton(
             icon: Icon(Icons.logout),
@@ -68,9 +71,7 @@ class _PagesState extends State<Pages> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Colors.black, Colors.red],
-                ),
+                color: primary,
               ),
               accountName: Text(user.nome),
               accountEmail: Text(user.email),

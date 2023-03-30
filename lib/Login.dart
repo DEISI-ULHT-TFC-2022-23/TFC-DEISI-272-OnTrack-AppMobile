@@ -51,90 +51,15 @@ class _LoginPageState extends State<LoginPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 30),
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.black),
-                      controller: _emailController,
-                      decoration: const InputDecoration(
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: "WorkSansLight",
-                            fontSize: 15.0),
-                        filled: true,
-                        fillColor: Colors.white24,
-                        hintText: "E-mail",
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(90.0)),
-                            borderSide:
-                                BorderSide(color: Colors.white24, width: 0.5)),
-                        prefixIcon: Icon(
-                          Icons.email,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      keyboardType: TextInputType.emailAddress,
-                      validator: (text) {
-                        if (text!.isEmpty || !text.contains("@")) {
-                          return "E-mail inválido!";
-                        }
-                      },
-                    ),
-                  ),
+                  buildEmail(),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
-                    child: TextFormField(
-                      style: const TextStyle(color: Colors.black),
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontFamily: "WorkSansLight",
-                            fontSize: 15.0),
-                        filled: true,
-                        fillColor: Colors.white24,
-                        hintText: "Senha",
-                        border: OutlineInputBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(90.0)),
-                            borderSide:
-                                BorderSide(color: Colors.white24, width: 0.5)),
-                        prefixIcon: Icon(
-                          Icons.lock_outline,
-                          color: Colors.grey,
-                        ),
-                      ),
-                      obscureText: true,
-                      validator: (text) {
-                        if (text!.isEmpty || text.length < 6) {
-                          return "Senha inválida!";
-                        }
-                      },
-                    ),
-                  ),
+                  buildPassword(),
                   const SizedBox(
                     height: 30,
                   ),
-                  SizedBox(
-                    height: 80,
-                    width: 80,
-                    child: FloatingActionButton(
-                      backgroundColor: Colors.red,
-                      child: const Text(
-                        "Entrar",
-                        style: TextStyle(
-                          fontSize: 18.0,
-                        ),
-                      ),
-                      onPressed: () {
-                        _submit();
-                      },
-                    ),
-                  ),
+                  buildSubmit(),
                 ],
               ),
             ),
@@ -142,5 +67,92 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  SizedBox buildSubmit() {
+    return SizedBox(
+                  height: 80,
+                  width: 80,
+                  child: FloatingActionButton(
+                    backgroundColor: Colors.red,
+                    child: const Text(
+                      "Entrar",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                      ),
+                    ),
+                    onPressed: () {
+                      _submit();
+                    },
+                  ),
+                );
+  }
+
+  Padding buildPassword() {
+    return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 30),
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: _passwordController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "WorkSansLight",
+                          fontSize: 15.0),
+                      filled: true,
+                      fillColor: Colors.white24,
+                      hintText: "Senha",
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(90.0)),
+                          borderSide:
+                              BorderSide(color: Colors.white24, width: 0.5)),
+                      prefixIcon: Icon(
+                        Icons.lock_outline,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    obscureText: true,
+                    validator: (text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Senha inválida!";
+                      }
+                    },
+                  ),
+                );
+  }
+
+  Padding buildEmail() {
+    return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30),
+                  child: TextFormField(
+                    style: const TextStyle(color: Colors.black),
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "WorkSansLight",
+                          fontSize: 15.0),
+                      filled: true,
+                      fillColor: Colors.white24,
+                      hintText: "E-mail",
+                      border: OutlineInputBorder(
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(90.0)),
+                          borderSide:
+                              BorderSide(color: Colors.white24, width: 0.5)),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    keyboardType: TextInputType.emailAddress,
+                    validator: (text) {
+                      if (text!.isEmpty || !text.contains("@")) {
+                        return "E-mail inválido!";
+                      }
+                    },
+                  ),
+                );
   }
 }
