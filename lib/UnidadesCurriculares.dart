@@ -28,7 +28,10 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
         itemCount: semestres.length,
         itemBuilder: (BuildContext context, int index) {
           return ExpansionTile(
-              title: Text(tituloTile(semestres[index])),
+              title: Text(
+                tituloTile(semestres[index]),
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               children: [
                 ListView.builder(
                   shrinkWrap: true,
@@ -40,7 +43,7 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                         docenteTeoricas: "Pedro Alves",
                         docentePraticas: "Miguel Tavares",
                         ano: 3,
-                        semestre: 2,
+                        semestre: 3,
                         ects: 5);
                     if (semestres[index] == aux.semestre) {
                       return buildListTile(borda, aux, context);
@@ -53,7 +56,8 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
         });
   }
 
-  ListTile buildListTile(Color borda, UnidadeCurricular aux, BuildContext context) {
+  ListTile buildListTile(
+      Color borda, UnidadeCurricular aux, BuildContext context) {
     return ListTile(
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 2),
@@ -74,13 +78,7 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                   SizedBox(
                     width: 20,
                   ),
-                  Text(
-                    "${aux.semestre}º Semestre",
-                    style: TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  ),
+                  buildTextSemestre(aux),
                   SizedBox(
                     width: 20,
                   ),
@@ -105,6 +103,26 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Text buildTextSemestre(UnidadeCurricular aux) {
+    UnidadeCurricular x = aux;
+    String texto = "";
+    if (x.semestre == 1) {
+      texto = "1º Semestre";
+    } else if (aux.semestre == 2) {
+      texto = "2º Semestre";
+    } else {
+      texto = "Anual";
+    }
+    return Text(
+      texto,
+      style: const TextStyle(
+        letterSpacing: 1,
+        fontSize: 12,
+        fontWeight: FontWeight.bold,
       ),
     );
   }

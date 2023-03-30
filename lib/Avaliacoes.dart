@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/EventoAvaliacao.dart';
+import 'package:tfc_ontack/UnidadeCurricular.dart';
 
 class Avaliacoes extends StatefulWidget {
   const Avaliacoes({Key? key}) : super(key: key);
@@ -7,9 +9,32 @@ class Avaliacoes extends StatefulWidget {
   State<Avaliacoes> createState() => _AvaliacoesState();
 }
 
+List<EventoAvaliacao> eventos = [
+  EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5), tipoDeEvento: "Projeto", metodoDeEntrega: "Drop Project", dateTime: DateTime(2023, 3, 15, 18, 30)),
+  EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "IHM", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5), tipoDeEvento: "Defesa", metodoDeEntrega: "Presencial", dateTime: DateTime(2023, 3, 25, 18, 30)),
+  EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5), tipoDeEvento: "Projeto", metodoDeEntrega: "Moodle", dateTime: DateTime(2023, 4, 15, 18, 30)),
+];
+
 class _AvaliacoesState extends State<Avaliacoes> {
+
+  ListView _buildListView() {
+    return ListView.builder(
+      itemCount: eventos.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: ListTile(
+            title: Text(eventos[index].unidadeCurricular.nome),
+            subtitle: Text(eventos[index].tipoDeEvento),
+            trailing: Text("${eventos[index].dateTime.day}/${eventos[index].dateTime.month}/${eventos[index].dateTime.year}",),
+          ),
+        );
+      },
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return _buildListView();
   }
 }

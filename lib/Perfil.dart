@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/User.dart';
 
 class Perfil extends StatefulWidget {
@@ -21,11 +22,7 @@ class _PerfilState extends State<Perfil> {
       body: Column(
         children: [
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Colors.black, Colors.red],
-              ),
-            ),
+            color: primary,
             child: Container(
               width: double.infinity,
               height: 175,
