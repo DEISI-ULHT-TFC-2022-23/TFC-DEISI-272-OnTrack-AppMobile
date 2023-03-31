@@ -13,6 +13,23 @@ class UnidadesCurriculares extends StatefulWidget {
 class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   List<int> semestres = [1, 2, 3];
 
+  List<UnidadeCurricular> unidades = [
+    UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5),
+    UnidadeCurricular(nome: "IHM", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
+
+  ];
+
   String tituloTile(int semestre) {
     if (semestre == 1) {
       return "1ºSemestre";
@@ -35,16 +52,10 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
               children: [
                 ListView.builder(
                   shrinkWrap: true,
-                  itemCount: 5,
+                  itemCount: unidades.length,
                   itemBuilder: (BuildContext context, int disciplinaIndex) {
                     Color borda = Colors.grey;
-                    UnidadeCurricular aux = UnidadeCurricular(
-                        nome: "Computação Móvel",
-                        docenteTeoricas: "Pedro Alves",
-                        docentePraticas: "Miguel Tavares",
-                        ano: 3,
-                        semestre: 3,
-                        ects: 5);
+                    UnidadeCurricular aux = unidades[disciplinaIndex];
                     if (semestres[index] == aux.semestre) {
                       return buildListTile(borda, aux, context);
                     } else {
