@@ -17,17 +17,6 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
     UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5),
     UnidadeCurricular(nome: "IHM", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5),
     UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-
   ];
 
   String tituloTile(int semestre) {

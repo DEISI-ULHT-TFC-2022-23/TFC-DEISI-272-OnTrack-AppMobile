@@ -54,14 +54,6 @@ class _PagesState extends State<Pages> {
       appBar: AppBar(
         title: _widgetTitle.elementAt(_selectedIndex),
         backgroundColor: primary,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              Navigator.popUntil(context, (route) => route.isFirst);
-            },
-          ),
-        ],
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -128,6 +120,13 @@ class _PagesState extends State<Pages> {
                 onTap: () {
                   _onItemTapped(5);
                   Navigator.pop(context);
+                }),
+            ListTile(
+                leading: Icon(Icons.logout),
+                title: Text("Logout"),
+                trailing: Icon(Icons.arrow_forward),
+                onTap: () {
+                  Navigator.popUntil(context, (route) => route.isFirst);
                 })
           ],
         ),
