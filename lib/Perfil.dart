@@ -61,8 +61,7 @@ class _PerfilState extends State<Perfil> {
                   const Text(
                     "Detalhes",
                     style: TextStyle(
-                      color: Colors.redAccent,
-                      fontStyle: FontStyle.normal,
+                      color: Color(0xFFCA0944),
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),

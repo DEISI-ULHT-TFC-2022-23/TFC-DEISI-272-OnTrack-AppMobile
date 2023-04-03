@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/Pages.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,7 +23,6 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    
     Navigator.push(context, MaterialPageRoute(builder: (context) => Pages()));
     //final authService = AuthService();
     //try {
@@ -36,16 +36,22 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(height: 150,),
+            const SizedBox(
+              height: 150,
+            ),
             Title(
               color: Colors.black,
-              child: const Text("OnTrack", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),),
+              child: const Text(
+                "OnTrack",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
+              ),
             ),
-            const SizedBox(height: 100,),
+            const SizedBox(
+              height: 100,
+            ),
             Form(
               key: _formKey,
               child: Column(
@@ -71,88 +77,80 @@ class _LoginPageState extends State<LoginPage> {
 
   SizedBox buildSubmit() {
     return SizedBox(
-                  height: 80,
-                  width: 80,
-                  child: FloatingActionButton(
-                    backgroundColor: Colors.red,
-                    child: const Text(
-                      "Entrar",
-                      style: TextStyle(
-                        fontSize: 18.0,
-                      ),
-                    ),
-                    onPressed: () {
-                      _submit();
-                    },
-                  ),
-                );
+      height: 80,
+      width: 80,
+      child: FloatingActionButton(
+        backgroundColor: primary,
+        child: const Text(
+          "Entrar",
+          style: TextStyle(
+            fontSize: 18.0,
+          ),
+        ),
+        onPressed: () {
+          _submit();
+        },
+      ),
+    );
   }
 
   Padding buildPassword() {
     return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    controller: _passwordController,
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontFamily: "WorkSansLight",
-                          fontSize: 15.0),
-                      filled: true,
-                      fillColor: Colors.white24,
-                      hintText: "Senha",
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(90.0)),
-                          borderSide:
-                              BorderSide(color: Colors.white24, width: 0.5)),
-                      prefixIcon: Icon(
-                        Icons.lock_outline,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    obscureText: true,
-                    validator: (text) {
-                      if (text!.isEmpty || text.length < 6) {
-                        return "Senha inválida!";
-                      }
-                    },
-                  ),
-                );
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black),
+        controller: _passwordController,
+        decoration: const InputDecoration(
+          hintStyle: TextStyle(
+              color: Colors.grey, fontFamily: "WorkSansLight", fontSize: 15.0),
+          filled: true,
+          fillColor: Colors.white24,
+          hintText: "Senha",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(90.0)),
+              borderSide: BorderSide(color: Colors.white24, width: 0.5)),
+          prefixIcon: Icon(
+            Icons.lock_outline,
+            color: Colors.grey,
+          ),
+        ),
+        obscureText: true,
+        validator: (text) {
+          if (text!.isEmpty || text.length < 6) {
+            return "Senha inválida!";
+          }
+        },
+      ),
+    );
   }
 
   Padding buildEmail() {
     return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30),
-                  child: TextFormField(
-                    style: const TextStyle(color: Colors.black),
-                    controller: _emailController,
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(
-                          color: Colors.grey,
-                          fontFamily: "WorkSansLight",
-                          fontSize: 15.0),
-                      filled: true,
-                      fillColor: Colors.white24,
-                      hintText: "E-mail",
-                      border: OutlineInputBorder(
-                          borderRadius:
-                              BorderRadius.all(Radius.circular(90.0)),
-                          borderSide:
-                              BorderSide(color: Colors.white24, width: 0.5)),
-                      prefixIcon: Icon(
-                        Icons.email,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (text) {
-                      if (text!.isEmpty || !text.contains("@")) {
-                        return "E-mail inválido!";
-                      }
-                    },
-                  ),
-                );
+      padding: EdgeInsets.symmetric(horizontal: 30),
+      child: TextFormField(
+        style: const TextStyle(color: Colors.black),
+        controller: _emailController,
+        decoration: const InputDecoration(
+          hintStyle: TextStyle(
+              color: Colors.grey, fontFamily: "WorkSansLight", fontSize: 15.0),
+          filled: true,
+          fillColor: Colors.white24,
+          hintText: "E-mail",
+          border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(90.0)),
+              borderSide: BorderSide(color: Colors.white24, width: 0.5)),
+          prefixIcon: Icon(
+            Icons.email,
+            color: Colors.grey,
+          ),
+        ),
+        keyboardType: TextInputType.emailAddress,
+        validator: (text) {
+          if (text!.isEmpty || !text.contains("@")) {
+            return "E-mail inválido!";
+          }
+        },
+      ),
+    );
   }
 }

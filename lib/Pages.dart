@@ -74,7 +74,7 @@ class _PagesState extends State<Pages> {
               ),
             ),
             ListTile(
-                leading: Icon(Icons.home),
+                leading: Icon(Icons.home, color: primary,),
                 title: Text("Home"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -82,7 +82,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.account_circle),
+                leading: Icon(Icons.account_circle, color: primary,),
                 title: Text("Perfil"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -90,7 +90,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.school),
+                leading: Icon(Icons.school, color: primary,),
                 title: Text("Unidades curriculares"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -98,7 +98,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.emoji_events),
+                leading: Icon(Icons.emoji_events, color: primary,),
                 title: Text("Avaliações"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -106,7 +106,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.notifications),
+                leading: Icon(Icons.notifications, color: primary,),
                 title: Text("Notificações"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -114,7 +114,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.settings),
+                leading: Icon(Icons.settings, color: primary,),
                 title: Text("Definições"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
@@ -122,7 +122,7 @@ class _PagesState extends State<Pages> {
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.logout),
+                leading: Icon(Icons.logout, color: primary,),
                 title: Text("Logout"),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
