@@ -79,7 +79,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.home, color: Colors.black,),
                 title: Text("Home", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(0);
                   Navigator.pop(context);
@@ -87,7 +87,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.account_circle, color: Colors.black,),
                 title: Text("Perfil", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(1);
                   Navigator.pop(context);
@@ -95,7 +95,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.school, color: Colors.black,),
                 title: Text("Unidades curriculares", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(2);
                   Navigator.pop(context);
@@ -103,7 +103,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.emoji_events, color: Colors.black,),
                 title: Text("Avaliações", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(3);
                   Navigator.pop(context);
@@ -111,7 +111,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.notifications, color: Colors.black,),
                 title: Text("Notificações", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(4);
                   Navigator.pop(context);
@@ -119,7 +119,7 @@ class _PagesState extends State<Pages> {
             ListTile(
                 leading: Icon(Icons.settings, color: Colors.black,),
                 title: Text("Definições", style: TextStyle(fontWeight: FontWeight.bold),),
-                trailing: Icon(Icons.arrow_forward),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(5);
                   Navigator.pop(context);
