@@ -63,7 +63,10 @@ class _PagesState extends State<Pages> {
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
-                color: primary,
+                image: DecorationImage(
+                  image: AssetImage("images/Drawer2.jpg"),
+                  fit: BoxFit.cover,
+                ),
               ),
               accountName: Text(user.nome),
               accountEmail: Text(user.email),
@@ -74,57 +77,57 @@ class _PagesState extends State<Pages> {
               ),
             ),
             ListTile(
-                leading: Icon(Icons.home, color: primary,),
-                title: Text("Home"),
+                leading: Icon(Icons.home, color: Colors.black,),
+                title: Text("Home", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(0);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.account_circle, color: primary,),
-                title: Text("Perfil"),
+                leading: Icon(Icons.account_circle, color: Colors.black,),
+                title: Text("Perfil", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(1);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.school, color: primary,),
-                title: Text("Unidades curriculares"),
+                leading: Icon(Icons.school, color: Colors.black,),
+                title: Text("Unidades curriculares", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(2);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.emoji_events, color: primary,),
-                title: Text("Avaliações"),
+                leading: Icon(Icons.emoji_events, color: Colors.black,),
+                title: Text("Avaliações", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(3);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.notifications, color: primary,),
-                title: Text("Notificações"),
+                leading: Icon(Icons.notifications, color: Colors.black,),
+                title: Text("Notificações", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(4);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.settings, color: primary,),
-                title: Text("Definições"),
+                leading: Icon(Icons.settings, color: Colors.black,),
+                title: Text("Definições", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: Icon(Icons.arrow_forward),
                 onTap: () {
                   _onItemTapped(5);
                   Navigator.pop(context);
                 }),
             ListTile(
-                leading: Icon(Icons.logout, color: primary,),
-                title: Text("Logout"),
-                trailing: Icon(Icons.arrow_forward),
+                leading: Icon(Icons.logout, color: Colors.black,),
+                title: Text("Logout", style: TextStyle(fontWeight: FontWeight.bold),),
+                trailing: Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   Navigator.popUntil(context, (route) => route.isFirst);
                 })
