@@ -20,6 +20,7 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
           Container(
             color: primary,
