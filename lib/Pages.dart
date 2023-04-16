@@ -60,7 +60,7 @@ class _PagesState extends State<Pages> {
       ),
       drawer: Drawer(
         child: ListView(
-          padding: const EdgeInsets.all(0),
+          padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
               decoration: BoxDecoration(
