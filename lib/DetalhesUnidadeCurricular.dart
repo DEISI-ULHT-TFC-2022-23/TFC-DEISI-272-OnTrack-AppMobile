@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/DetalhesEventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
@@ -25,7 +26,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes de Unidade Curricular'),
-        backgroundColor: Colors.red,
+        backgroundColor: primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

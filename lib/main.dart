@@ -1,8 +1,20 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/Login.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
+  getUsers();
   runApp(const MyApp());
+}
+
+Future<List<dynamic>> getUsers() async {
+  final response = await http.get(Uri.parse('https://642b3d8dd7081590f91f36f2.mockapi.io/users'));
+  if (response.statusCode == 200) {
+    return jsonDecode(response.body);
+  } else {
+    throw Exception('Falha ao carregar os dados da API');
+  }
 }
 
 class MyApp extends StatelessWidget {

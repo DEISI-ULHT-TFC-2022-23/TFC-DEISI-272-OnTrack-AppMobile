@@ -20,6 +20,7 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+
         children: [
           Container(
             color: primary,
@@ -61,8 +62,7 @@ class _PerfilState extends State<Perfil> {
                   const Text(
                     "Detalhes",
                     style: TextStyle(
-                      color: Colors.redAccent,
-                      fontStyle: FontStyle.normal,
+                      color: Color(0xFFCA0944),
                       fontSize: 32,
                       fontWeight: FontWeight.bold,
                     ),

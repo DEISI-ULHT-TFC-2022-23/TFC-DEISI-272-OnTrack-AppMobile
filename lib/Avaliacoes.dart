@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
@@ -10,7 +11,7 @@ class Avaliacoes extends StatefulWidget {
 }
 
 List<EventoAvaliacao> eventos = [
-  EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5), tipoDeEvento: "Projeto", metodoDeEntrega: "Drop Project", dateTime: DateTime(2023, 3, 15, 18, 30)),
+  EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "Engenharia de Requisitos e Testes", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5), tipoDeEvento: "Projeto", metodoDeEntrega: "Drop Project", dateTime: DateTime(2023, 3, 15, 18, 30)),
   EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "IHM", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5), tipoDeEvento: "Defesa", metodoDeEntrega: "Presencial", dateTime: DateTime(2023, 3, 25, 18, 30)),
   EventoAvaliacao(unidadeCurricular: UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5), tipoDeEvento: "Projeto", metodoDeEntrega: "Moodle", dateTime: DateTime(2023, 4, 15, 18, 30)),
 ];
@@ -23,9 +24,15 @@ class _AvaliacoesState extends State<Avaliacoes> {
       itemBuilder: (context, index) {
         return Card(
           child: ListTile(
-            title: Text(eventos[index].unidadeCurricular.nome),
+            title: Text(eventos[index].unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary),),
             subtitle: Text(eventos[index].tipoDeEvento),
-            trailing: Text("${eventos[index].dateTime.day}/${eventos[index].dateTime.month}/${eventos[index].dateTime.year}",),
+            trailing: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("${eventos[index].dateTime.day}/${eventos[index].dateTime.month}/${eventos[index].dateTime.year}",),
+                Text("${eventos[index].dateTime.hour}:${eventos[index].dateTime.minute}"),
+              ],
+            )
           ),
         );
       },
