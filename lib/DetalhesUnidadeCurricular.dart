@@ -49,6 +49,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                       fontWeight: FontWeight.bold,
                       letterSpacing: 2,
                     ),
+                    softWrap: true,
                   ),
                 ),
               ],

@@ -65,6 +65,7 @@ flutter:
     - images/Me.jpg
     - images/Drawer.jpg
     - images/Drawer2.jpg
+    - images/login_background.jpg
 
 
   # To add assets to your application, add an assets section, like this:

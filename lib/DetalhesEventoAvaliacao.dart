@@ -1,4 +1,6 @@
+
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 
 class DetalhesEventoAvaliacao extends StatefulWidget {
@@ -22,7 +24,7 @@ class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes de Evento de Avaliação'),
-        backgroundColor: Colors.red,
+        backgroundColor: primary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -54,11 +56,14 @@ class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
               children: [
                 const Icon(Icons.class_, color: Colors.orange),
                 const SizedBox(width: 5),
-                Text(
-                  'Unidade curricular: ${eventoAvaliacao.unidadeCurricular.nome}',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey[700],
+                Expanded(
+                  child: Text(
+                    'Unidade curricular: ${eventoAvaliacao.unidadeCurricular.nome}',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey[700],
+                    ),
+                    softWrap: true,
                   ),
                 ),
               ],

@@ -16,7 +16,7 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
 
   List<UnidadeCurricular> unidades = [
     UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5),
-    UnidadeCurricular(nome: "IHM", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5),
+    UnidadeCurricular(nome: "Interação Humano Máquina", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5),
     UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
   ];
 
@@ -84,9 +84,11 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                 SizedBox(
                   width: 20,
                 ),
-                Text(
-                  aux.nome,
-                  style: TextStyle(letterSpacing: 1, fontSize: 12),
+                Expanded(
+                  child: Text(
+                    aux.nome,
+                    style: TextStyle(letterSpacing: 1, fontSize: 12, overflow: TextOverflow.ellipsis),
+                  ),
                 ),
               ],
             ),

@@ -23,7 +23,12 @@ class _PerfilState extends State<Perfil> {
 
         children: [
           Container(
-            color: primary,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: Image.asset("images/Drawer2.jpg").image,
+                fit: BoxFit.cover,
+              ),
+            ),
             child: Container(
               width: double.infinity,
               height: 175,
@@ -41,8 +46,9 @@ class _PerfilState extends State<Perfil> {
                   Text(
                     user.nome,
                     style: const TextStyle(
-                      fontSize: 22,
+                      fontSize: 26,
                       color: Colors.white,
+                      fontWeight: FontWeight.bold,
                     ),
                   )
                 ],

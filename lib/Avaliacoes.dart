@@ -3,6 +3,8 @@ import 'package:tfc_ontack/Colors/Colors.dart';
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
+import 'DetalhesEventoAvaliacao.dart';
+
 class Avaliacoes extends StatefulWidget {
   const Avaliacoes({Key? key}) : super(key: key);
 
@@ -22,9 +24,10 @@ class _AvaliacoesState extends State<Avaliacoes> {
     return ListView.builder(
       itemCount: eventos.length,
       itemBuilder: (context, index) {
+        EventoAvaliacao a = eventos[index];
         return Card(
           child: ListTile(
-            title: Text(eventos[index].unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary),),
+            title: Text(eventos[index].unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary, overflow: TextOverflow.ellipsis),),
             subtitle: Text(eventos[index].tipoDeEvento),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -32,7 +35,19 @@ class _AvaliacoesState extends State<Avaliacoes> {
                 Text("${eventos[index].dateTime.day}/${eventos[index].dateTime.month}/${eventos[index].dateTime.year}",),
                 Text("${eventos[index].dateTime.hour}:${eventos[index].dateTime.minute}"),
               ],
-            )
+            ),
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetalhesEventoAvaliacao(
+                      eventoAvaliacao: a,
+                    ),
+                  ),
+                );
+              });
+            },
           ),
         );
       },

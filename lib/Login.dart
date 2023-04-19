@@ -23,6 +23,9 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
+    _emailController.clear();
+    _passwordController.clear();
+
     Navigator.push(context, MaterialPageRoute(builder: (context) => Pages()));
     //final authService = AuthService();
     //try {
@@ -36,40 +39,53 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 150,
-            ),
-            Title(
-              color: Colors.black,
-              child: const Text(
-                "OnTrack",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 36),
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/login_background.jpg"),
+            fit: BoxFit.fill,
+          ),
+        ),
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 150,
               ),
-            ),
-            const SizedBox(
-              height: 100,
-            ),
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  buildEmail(),
-                  const SizedBox(
-                    height: 20.0,
-                  ),
-                  buildPassword(),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  buildSubmit(),
-                ],
+              Title(
+                color: Colors.black,
+                child: const Text(
+                  "OnTrack",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 36,
+                      color: Colors.white),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(
+                height: 100,
+              ),
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    buildEmail(),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    buildPassword(),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    buildSubmit(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -102,13 +118,19 @@ class _LoginPageState extends State<LoginPage> {
         controller: _passwordController,
         decoration: const InputDecoration(
           hintStyle: TextStyle(
-              color: Colors.grey, fontFamily: "WorkSansLight", fontSize: 15.0),
+            color: Colors.grey,
+            fontFamily: "WorkSansLight",
+            fontSize: 15.0,
+          ),
           filled: true,
-          fillColor: Colors.white24,
+          fillColor: Colors.white,
           hintText: "Senha",
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(90.0)),
-              borderSide: BorderSide(color: Colors.white24, width: 0.5)),
+              borderSide: BorderSide(
+                color: Colors.white24,
+                width: 0.5,
+              )),
           prefixIcon: Icon(
             Icons.lock_outline,
             color: Colors.grey,
@@ -134,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
           hintStyle: TextStyle(
               color: Colors.grey, fontFamily: "WorkSansLight", fontSize: 15.0),
           filled: true,
-          fillColor: Colors.white24,
+          fillColor: Colors.white,
           hintText: "E-mail",
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(90.0)),
