@@ -10,7 +10,15 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      alignment: Alignment.center,
+      child: const Text(
+        "COMING SOON",
+        style: TextStyle(
+          fontSize: 48,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+    );
   }
 }
-
