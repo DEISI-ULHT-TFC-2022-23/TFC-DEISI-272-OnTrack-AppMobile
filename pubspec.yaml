@@ -62,7 +62,6 @@ flutter:
   uses-material-design: true
 
   assets:
-    - images/Me.jpg
     - images/avatar.jpg
     - images/Drawer.jpg
     - images/Drawer2.jpg

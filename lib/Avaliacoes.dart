@@ -24,16 +24,16 @@ class _AvaliacoesState extends State<Avaliacoes> {
     return ListView.builder(
       itemCount: eventos.length,
       itemBuilder: (context, index) {
-        EventoAvaliacao a = eventos[index];
+        EventoAvaliacao evento = eventos[index];
         return Card(
           child: ListTile(
-            title: Text(eventos[index].unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary, overflow: TextOverflow.ellipsis),),
-            subtitle: Text(eventos[index].tipoDeEvento),
+            title: Text(evento.unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary, overflow: TextOverflow.ellipsis),),
+            subtitle: Text(evento.tipoDeEvento),
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("${eventos[index].dateTime.day}/${eventos[index].dateTime.month}/${eventos[index].dateTime.year}",),
-                Text("${eventos[index].dateTime.hour}:${eventos[index].dateTime.minute}"),
+                Text("${evento.dateTime.day}/${evento.dateTime.month}/${evento.dateTime.year}",),
+                Text("${evento.dateTime.hour}:${evento.dateTime.minute}"),
               ],
             ),
             onTap: () {
@@ -42,7 +42,7 @@ class _AvaliacoesState extends State<Avaliacoes> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetalhesEventoAvaliacao(
-                      eventoAvaliacao: a,
+                      eventoAvaliacao: evento,
                     ),
                   ),
                 );
