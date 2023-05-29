@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tfc_ontack/Colors/Colors.dart';
-import 'package:tfc_ontack/DetalhesEventoAvaliacao.dart';
+import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
-import 'EventoAvaliacao.dart';
+import '../EventoAvaliacao.dart';
+import 'DetalhesEventoAvaliacao.dart';
 
 class DetalhesUnidadeCurricular extends StatefulWidget {
   UnidadeCurricular x;

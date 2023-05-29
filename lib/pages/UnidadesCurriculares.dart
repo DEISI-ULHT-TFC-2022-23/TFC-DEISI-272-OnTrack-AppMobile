@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:tfc_ontack/Colors/Colors.dart';
-import 'package:tfc_ontack/DetalhesUnidadeCurricular.dart';
+import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
+
+import 'DetalhesUnidadeCurricular.dart';
 
 class UnidadesCurriculares extends StatefulWidget {
   const UnidadesCurriculares({Key? key}) : super(key: key);
@@ -54,8 +55,10 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                     }
                   },
                 ),
-              ]);
-        });
+              ],
+          );
+        },
+    );
   }
 
 

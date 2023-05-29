@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:tfc_ontack/Colors/Colors.dart';
-import 'package:tfc_ontack/Dashboard.dart';
-import 'package:tfc_ontack/UnidadesCurriculares.dart';
+import 'package:tfc_ontack/pages/Definicoes.dart';
+import 'package:tfc_ontack/pages/Notificacoes.dart';
+import 'package:tfc_ontack/pages/Perfil.dart';
+import 'package:tfc_ontack/pages/UnidadesCurriculares.dart';
+import 'package:tfc_ontack/static/Colors/Colors.dart';
+import 'package:tfc_ontack/pages/Dashboard.dart';
 import 'package:tfc_ontack/User.dart';
-
-
-import 'Avaliacoes.dart';
-import 'Definicoes.dart';
-import 'Notificacoes.dart';
-import 'Perfil.dart';
+import '../pages/Avaliacoes.dart';
 
 class Pages extends StatefulWidget {
   const Pages({Key? key}) : super(key: key);

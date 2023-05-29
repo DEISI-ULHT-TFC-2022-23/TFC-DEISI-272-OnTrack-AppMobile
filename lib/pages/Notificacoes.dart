@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'Colors/Colors.dart';
-import 'Notificacao.dart';
+import 'package:tfc_ontack/static/Colors/Colors.dart';
+import '../Notificacao.dart';
 
 class Notificacoes extends StatefulWidget {
   const Notificacoes({Key? key}) : super(key: key);

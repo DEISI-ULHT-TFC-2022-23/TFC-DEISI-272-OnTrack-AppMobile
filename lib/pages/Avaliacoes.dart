@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tfc_ontack/Colors/Colors.dart';
+import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
