@@ -7,18 +7,22 @@ import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/pages/Dashboard.dart';
 import 'package:tfc_ontack/User.dart';
 import '../pages/Avaliacoes.dart';
+import '../services/api_requests.dart';
 
 class Pages extends StatefulWidget {
-  const Pages({Key? key}) : super(key: key);
+  int userId;
+  Pages({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<Pages> createState() => _PagesState();
+  State<Pages> createState() => _PagesState(userId as String);
 }
 
 class _PagesState extends State<Pages> {
+  String userId;
+  _PagesState(this.userId);
   int _selectedIndex = 0;
 
-  static User user = User("Rafael Paulo", "a22001810@alunos.ulht.pt", "Engenharia Informática","images/avatar.jpg",3,140);
+  static User user = fetchUserFromAPI(userId) as User;
 
   static final List<Widget> _widgetOptions = <Widget>[
     const Dashboard(),
@@ -37,6 +41,8 @@ class _PagesState extends State<Pages> {
     const Text("Notificações"),
     const Text("Definições")
   ];
+
+
 
   void _onItemTapped(int index) {
     setState(() {

@@ -7,30 +7,7 @@ class UnidadeCurricular {
   late int ano;
   late int semestre;
   late int ects;
-  late List eventosDeAvaliacao = [
-    EventoAvaliacao(
-        unidadeCurricular: UnidadeCurricular(
-            nome: "Computação Móvel",
-            docenteTeoricas: "Pedro Alves",
-            docentePraticas: "Miguel Tavares",
-            ano: 3,
-            semestre: 2,
-            ects: 5),
-        tipoDeEvento: "Projeto",
-        metodoDeEntrega: "Drop Project",
-        dateTime: DateTime(2023, 3, 15, 18, 30)),
-    EventoAvaliacao(
-        unidadeCurricular: UnidadeCurricular(
-            nome: "Computação Móvel",
-            docenteTeoricas: "Pedro Alves",
-            docentePraticas: "Miguel Tavares",
-            ano: 3,
-            semestre: 2,
-            ects: 5),
-        tipoDeEvento: "Ficha Prática",
-        metodoDeEntrega: "Drop Project",
-        dateTime: DateTime(2023, 4, 15, 18, 30))
-  ];
+  late List eventosDeAvaliacao = [];
 
   UnidadeCurricular(
       {required this.nome,
@@ -38,10 +15,30 @@ class UnidadeCurricular {
       required this.docentePraticas,
       required this.ano,
       required this.semestre,
-      required this.ects});
+      required this.ects,
+      required this.eventosDeAvaliacao});
 
-  List getEventos(){
-    eventosDeAvaliacao.sort((a,b) => a.data.compareTo(b.data));
+  factory UnidadeCurricular.fromJson(Map<String, dynamic> json) {
+    List<EventoAvaliacao> eventos = [];
+    if (json['eventosAvaliacao'] != null) {
+      for (var eventoData in json['eventosAvaliacao']) {
+        EventoAvaliacao evento = EventoAvaliacao.fromJson(eventoData);
+        eventos.add(evento);
+      }
+    }
+    return UnidadeCurricular(
+      nome: json['nome'],
+      docenteTeoricas: json['docenteTeoricas'],
+      docentePraticas: json['docentePraticas'],
+      ano: json['ano'],
+      semestre: json['semestre'],
+      ects: json['ects'],
+      eventosDeAvaliacao: eventos,
+    );
+  }
+
+  List getEventos() {
+    eventosDeAvaliacao.sort((a, b) => a.data.compareTo(b.data));
     return eventosDeAvaliacao;
   }
 }

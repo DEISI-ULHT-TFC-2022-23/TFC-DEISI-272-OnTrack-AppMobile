@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
     _emailController.clear();
     _passwordController.clear();
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages()));
+
     //final authService = AuthService();
     //try {
     //final token = await authService.login(email, password);
@@ -34,6 +34,7 @@ class _LoginPageState extends State<LoginPage> {
     //} catch (e) {
     // Login falhou, exibir mensagem de erro
     //}
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(userId: 1,))); //Trocar pelo id vindo ao API
   }
 
   @override

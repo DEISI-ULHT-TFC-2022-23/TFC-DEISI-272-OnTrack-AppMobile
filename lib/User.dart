@@ -1,25 +1,22 @@
-class User{
+class User {
   late String _nome;
   late String _email;
   String _curso;
   String _foto;
   late int _ano;
   late int _ects;
-  List _UnidadesCurriculares = [];
-  List _EventosAvaliacao = [];
 
   User(this._nome, this._email, this._curso, this._foto, this._ano, this._ects);
 
-  List get EventosAvaliacao => _EventosAvaliacao;
-
-  set EventosAvaliacao(List value) {
-    _EventosAvaliacao = value;
-  }
-
-  List get UnidadesCurriculares => _UnidadesCurriculares;
-
-  set UnidadesCurriculares(List value) {
-    _UnidadesCurriculares = value;
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      json['nome'],
+      json['email'],
+      json['curso'],
+      json['foto'],
+      json['ano'],
+      json['ects'],
+    );
   }
 
   int get ects => _ects;

@@ -2,74 +2,53 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:tfc_ontack/EventoAvaliacao.dart';
+import 'package:tfc_ontack/User.dart';
+
+import '../UnidadeCurricular.dart';
 
 
 const _servidorOnTrackAPIEndpoint = '';
 
+Future<List<UnidadeCurricular>> fetchUnidadesFromAPI() async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/unidades-curriculares'));
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    List<UnidadeCurricular> unidades = [];
+    for (var unidadeData in data) {
+      UnidadeCurricular unidade = UnidadeCurricular.fromJson(unidadeData);
+      unidades.add(unidade);
+    }
+    return unidades;
+  } else {
+    throw Exception('Erro ao buscar unidades da API');
+  }
+}
 
-Future<Map<String, dynamic>> getAluno(String id) async {
-  // Id do aluno
+Future<User> fetchUserFromAPI(String id) async {
   var idAluno = id;
 
   var response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/$idAluno'));
   if (response.statusCode == 200) {
     var jsonResponse = jsonDecode(response.body);
-    return jsonResponse;
+    User user = User.fromJson(jsonResponse);
+    return user;
   } else {
-    print('Request failed with status: ${response.statusCode}.');
-    return {};
+    throw Exception('Erro ao buscar user da API');
   }
 }
 
-
-Future<List<Widget>> getUCByAlunoID(BuildContext context) async {
-  // Id do aluno
-  var idAluno = 1;
-
-  var response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/$idAluno/unidades-curriculares/list'));
+Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI() async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/avaliacoes'));
   if (response.statusCode == 200) {
-    var resultados = jsonDecode(response.body) as List;
-    var jsonResponse = resultados.map((uc) => getUCWidgetFromJSON(context, uc)).toList();
-    return jsonResponse;
+    final data = jsonDecode(response.body);
+    List<EventoAvaliacao> avaliacoes = [];
+    for (var avaliacaoData in data) {
+      EventoAvaliacao unidade = EventoAvaliacao.fromJson(avaliacaoData);
+      avaliacoes.add(unidade);
+    }
+    return avaliacoes;
   } else {
-    print('Request failed with status: ${response.statusCode}.');
-    return [];
-  }
-}
-
-Future<List<Widget>> getAvaliacoes(BuildContext context, String estado) async {
-  // Id do professor
-  var idProf = 1;
-
-  var response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/professor/$idProf/evento_avaliacao'));
-  if(response.statusCode == 200) {
-    var resultados = jsonDecode(response.body) as List;
-    var jsonResponse = resultados.where((avaliacao) => avaliacao['estado'] == estado)
-        .map((avaliacao) => getAvaliacoesWidgetFromJSON(context, avaliacao))
-        .toList();
-    return jsonResponse;
-  }else {
-    print('Request failed with status: ${response.statusCode}.');
-    return [];
-  }
-}
-
-Future<List<Widget>> getEventosProfessorDiaX(DateTime selectedDay) async{
-  // Id do professor
-  var idProf = 1;
-
-  var response = await http.get(Uri.parse('https://6419c06ec152063412cb0109.mockapi.io/professor/$idProf/evento_avaliacao'));
-  if (response.statusCode == 200) {
-    List<Widget> output = [];
-    var resultados = jsonDecode(response.body) as List;
-    resultados.map((evento)  {
-      if(evento['data_realizacao'] == DateFormat('dd/MM/yyyy').format(DateTime(selectedDay.year, selectedDay.month, selectedDay.day))){
-        output.add(getHomeAvaliacoesWidgetFromJSON(evento, Colors.grey[300]));
-      }
-    }).toList();
-    return output;
-  } else {
-    print('Erro ao carregar os eventos do dia');
-    return [];
+    throw Exception('Erro ao buscar unidades da API');
   }
 }

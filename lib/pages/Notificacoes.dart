@@ -28,8 +28,8 @@ class _NotificacoesState extends State<Notificacoes> {
             trailing: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("${notificacoes[index].data}",),
-                Text("${notificacoes[index].hora}"),
+                Text(notificacoes[index].data,),
+                Text(notificacoes[index].hora),
               ],
             ),
           ),

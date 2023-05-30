@@ -7,19 +7,19 @@ import '../EventoAvaliacao.dart';
 import 'DetalhesEventoAvaliacao.dart';
 
 class DetalhesUnidadeCurricular extends StatefulWidget {
-  UnidadeCurricular x;
+  UnidadeCurricular unidadeCurricular;
 
-  DetalhesUnidadeCurricular({Key? key, required this.x}) : super(key: key);
+  DetalhesUnidadeCurricular({Key? key, required this.unidadeCurricular}) : super(key: key);
 
   @override
   State<DetalhesUnidadeCurricular> createState() =>
-      _DetalhesUnidadeCurricularState(x);
+      _DetalhesUnidadeCurricularState(unidadeCurricular);
 }
 
 class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
-  UnidadeCurricular x;
+  UnidadeCurricular unidadeCurricular;
 
-  _DetalhesUnidadeCurricularState(this.x);
+  _DetalhesUnidadeCurricularState(this.unidadeCurricular);
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
               children: [
                 Expanded(
                   child: Text(
-                    x.nome,
+                    unidadeCurricular.nome,
                     overflow: TextOverflow.visible,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
@@ -60,7 +60,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 const Icon(Icons.people, color: Colors.blue),
                 const SizedBox(width: 5),
                 Text(
-                  'Docente teoricas: ${x.docenteTeoricas}',
+                  'Docente teoricas: ${unidadeCurricular.docenteTeoricas}',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[700],
@@ -74,7 +74,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 const Icon(Icons.people, color: Colors.blue),
                 const SizedBox(width: 5),
                 Text(
-                  'Docente práticas: ${x.docentePraticas}',
+                  'Docente práticas: ${unidadeCurricular.docentePraticas}',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[700],
@@ -88,7 +88,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 const Icon(Icons.book, color: Colors.blue),
                 const SizedBox(width: 5),
                 Text(
-                  'Disciplina do ${x.ano}ºAno, ${x.semestre}ºSemestre',
+                  'Disciplina do ${unidadeCurricular.ano}ºAno, ${unidadeCurricular.semestre}ºSemestre',
                   style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                 ),
               ],
@@ -99,7 +99,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 const Icon(Icons.grade, color: Colors.amber),
                 const SizedBox(width: 5),
                 Text(
-                  "ECTS: ${x.ects}",
+                  "ECTS: ${unidadeCurricular.ects}",
                   style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                 ),
               ],
@@ -119,15 +119,15 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
             ),
             Expanded(
               child: ListView.builder(
-                itemCount: x.eventosDeAvaliacao.length,
+                itemCount: unidadeCurricular.eventosDeAvaliacao.length,
                 itemBuilder: (context, index) {
                   Color borda = Colors.grey;
-                  EventoAvaliacao a = x.eventosDeAvaliacao[index];
+                  EventoAvaliacao avaliacao = unidadeCurricular.eventosDeAvaliacao[index];
                   Icon realizado;
-                  if(a.getRealizado()){
-                    realizado = Icon(Icons.check, color: Colors.green,);
+                  if(avaliacao.getRealizado()){
+                    realizado = const Icon(Icons.check, color: Colors.green,);
                   }else{
-                    realizado = Icon(Icons.close, color: Colors.red,);
+                    realizado = const Icon(Icons.close, color: Colors.red,);
                   }
 
                   return SizedBox(
@@ -143,13 +143,13 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                             children: [
                               realizado,
                               Text(
-                                "${a.dateTime.day}/${a.dateTime.month}/${a.dateTime.year}",
-                                style: TextStyle(fontSize: 14),
+                                "${avaliacao.dateTime.day}/${avaliacao.dateTime.month}/${avaliacao.dateTime.year}",
+                                style: const TextStyle(fontSize: 14),
                               ),
-                              SizedBox(width: 20,),
+                              const SizedBox(width: 20,),
                               Text(
-                                "${a.tipoDeEvento}",
-                                style: TextStyle(fontSize: 14),
+                                avaliacao.tipoDeEvento,
+                                style: const TextStyle(fontSize: 14),
                               )
                             ],
                           ),
@@ -160,7 +160,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => DetalhesEventoAvaliacao(
-                                  eventoAvaliacao: a,
+                                  eventoAvaliacao: avaliacao,
                                 ),
                               ),
                             );

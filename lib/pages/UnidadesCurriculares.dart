@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
+import '../services/api_requests.dart';
 import 'DetalhesUnidadeCurricular.dart';
 
 class UnidadesCurriculares extends StatefulWidget {
@@ -15,11 +16,6 @@ class UnidadesCurriculares extends StatefulWidget {
 class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   List<int> semestres = [1, 2, 3];
 
-  List<UnidadeCurricular> unidades = [
-    UnidadeCurricular(nome: "Computação Móvel", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 2, ects: 5),
-    UnidadeCurricular(nome: "Interação Humano Máquina", docenteTeoricas: "Pedro Alves", docentePraticas: "Miguel Tavares", ano: 3, semestre: 1, ects: 5),
-    UnidadeCurricular(nome: "TFC", docenteTeoricas: "Miguel Tavares", docentePraticas: "Miguel Tavares", ano: 3, semestre: 3, ects: 20),
-  ];
 
   String tituloTile(int semestre) {
     if (semestre == 1) {
@@ -31,40 +27,82 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
     }
   }
 
-  ListView listView() {
+  /*ListView listView() {
     return ListView.builder(
-        itemCount: semestres.length,
-        itemBuilder: (BuildContext context, int index) {
-          return ExpansionTile(
-            textColor: primary,
-              title: Text(
-                tituloTile(semestres[index]),
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: unidades.length,
-                  itemBuilder: (BuildContext context, int disciplinaIndex) {
-                    Color borda = Colors.grey;
-                    UnidadeCurricular aux = unidades[disciplinaIndex];
-                    if (semestres[index] == aux.semestre) {
-                      return buildListTile(borda, aux, context);
-                    } else {
-                      return Container();
-                    }
-                  },
+      itemCount: semestres.length,
+      itemBuilder: (BuildContext context, int index) {
+        return ExpansionTile(
+          textColor: primary,
+          title: Text(
+            tituloTile(semestres[index]),
+            style: const TextStyle(fontWeight: FontWeight.bold),
+          ),
+          children: [
+            ListView.builder(
+              shrinkWrap: true,
+              itemCount: unidades.length,
+              itemBuilder: (BuildContext context, int disciplinaIndex) {
+                Color borda = Colors.grey;
+                UnidadeCurricular aux = unidades[disciplinaIndex];
+                if (semestres[index] == aux.semestre) {
+                  return buildListTile(borda, aux, context);
+                } else {
+                  return Container();
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }*/
+
+  FutureBuilder<List<UnidadeCurricular>> listView() {
+    return FutureBuilder<List<UnidadeCurricular>>(
+      future: fetchUnidadesFromAPI(),
+      builder: (BuildContext context, AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Erro ao recolher os dados: ${snapshot.error}');
+        } else {
+          List<UnidadeCurricular> unidades = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: semestres.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ExpansionTile(
+                textColor: primary,
+                title: Text(
+                  tituloTile(semestres[index]),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ],
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: unidades.length,
+                    itemBuilder: (BuildContext context, int disciplinaIndex) {
+                      Color borda = Colors.grey;
+                      UnidadeCurricular aux = unidades[disciplinaIndex];
+                      if (semestres[index] == aux.semestre) {
+                        return buildListTile(borda, aux, context);
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ],
+              );
+            },
           );
-        },
+        }
+      },
     );
   }
 
 
 
-  ListTile buildListTile(
-      Color borda, UnidadeCurricular aux, BuildContext context) {
+  ListTile buildListTile(Color borda, UnidadeCurricular aux, BuildContext context) {
     return ListTile(
       title: SizedBox(
         height: 65,
@@ -80,17 +118,17 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                   Icons.menu_book_outlined,
                   color: primary,
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 buildTextSemestre(aux),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 Expanded(
                   child: Text(
                     aux.nome,
-                    style: TextStyle(letterSpacing: 1, fontSize: 12, overflow: TextOverflow.ellipsis),
+                    style: const TextStyle(letterSpacing: 1, fontSize: 12, overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],
@@ -101,7 +139,7 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetalhesUnidadeCurricular(
-                      x: aux,
+                      unidadeCurricular: aux,
                     ),
                   ),
                 );
