@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/navigation/Pages.dart';
 
+import '../User.dart';
+import '../services/api_requests.dart';
+
 class LoginPage extends StatefulWidget {
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -34,7 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     //} catch (e) {
     // Login falhou, exibir mensagem de erro
     //}
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(userId: 1,))); //Trocar pelo id vindo ao API
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(userId: "1",))); //Trocar pelo id vindo ao API
   }
 
   @override

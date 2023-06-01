@@ -52,3 +52,14 @@ Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI() async {
     throw Exception('Erro ao buscar unidades da API');
   }
 }
+
+Future<bool> login(String email) async {
+  var url = _servidorOnTrackAPIEndpoint+'?email=$email';
+  var response = await http.get(Uri.parse(url));
+  if (response.statusCode == 200) {
+    return true;
+  } else {
+    throw Exception('Request failed with status: ${response.statusCode}.');
+    return false;
+  }
+}

@@ -10,11 +10,12 @@ import '../pages/Avaliacoes.dart';
 import '../services/api_requests.dart';
 
 class Pages extends StatefulWidget {
-  int userId;
+  String userId;
+
   Pages({Key? key, required this.userId}) : super(key: key);
 
   @override
-  State<Pages> createState() => _PagesState(userId as String);
+  State<Pages> createState() => _PagesState(userId);
 }
 
 class _PagesState extends State<Pages> {
@@ -22,7 +23,7 @@ class _PagesState extends State<Pages> {
   _PagesState(this.userId);
   int _selectedIndex = 0;
 
-  static User user = fetchUserFromAPI(userId) as User;
+  User user = fetchUserFromAPI(userId) as User;
 
   static final List<Widget> _widgetOptions = <Widget>[
     const Dashboard(),
