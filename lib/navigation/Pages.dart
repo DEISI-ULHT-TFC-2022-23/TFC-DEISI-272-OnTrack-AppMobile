@@ -20,7 +20,9 @@ class Pages extends StatefulWidget {
 
 class _PagesState extends State<Pages> {
   String userId;
+
   _PagesState(this.userId);
+
   int _selectedIndex = 0;
 
   User user = fetchUserFromAPI(userId) as User;
