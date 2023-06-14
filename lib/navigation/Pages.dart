@@ -10,29 +10,34 @@ import '../pages/Avaliacoes.dart';
 import '../services/api_requests.dart';
 
 class Pages extends StatefulWidget {
-  String userId;
+  User user;
 
-  Pages({Key? key, required this.userId}) : super(key: key);
+  Pages({Key? key, required this.user}) : super(key: key);
 
   @override
-  State<Pages> createState() => _PagesState(userId);
+  State<Pages> createState() => _PagesState(user);
 }
 
 class _PagesState extends State<Pages> {
-  String userId;
-  _PagesState(this.userId);
+  final User user;
   int _selectedIndex = 0;
+  List<Widget>? _widgetOptions;
 
-  User user = fetchUserFromAPI(userId) as User;
 
-  static final List<Widget> _widgetOptions = <Widget>[
-    const Dashboard(),
-    Perfil(user),
-    const UnidadesCurriculares(),
-    const Avaliacoes(),
-    const Notificacoes(),
-    const Definicoes()
-  ];
+
+  _PagesState(this.user){
+    _widgetOptions = <Widget>[
+      const Dashboard(),
+      Perfil(user),
+      const UnidadesCurriculares(),
+      const Avaliacoes(),
+      const Notificacoes(),
+      const Definicoes()
+    ];
+  }
+
+
+
 
   static final List<Widget> _widgetTitle = <Widget>[
     const Text("Home"),
@@ -61,7 +66,7 @@ class _PagesState extends State<Pages> {
         backgroundColor: primary,
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions?.elementAt(_selectedIndex),
       ),
       drawer: Drawer(
         child: ListView(

@@ -1,31 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:tfc_ontack/pages/LoginToken.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/navigation/Pages.dart';
 
 import '../User.dart';
 import '../services/api_requests.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginTokenPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginTokenPageState createState() => _LoginTokenPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginTokenPageState extends State<LoginTokenPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
+  final _tokenController = TextEditingController();
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
+    _tokenController.dispose();
     super.dispose();
   }
 
   void _submit() async {
     final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
+    final token = _tokenController.text.trim();
 
     _emailController.clear();
 
@@ -82,7 +81,7 @@ class _LoginPageState extends State<LoginPage> {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    buildPassword(),
+                    buildToken(),
                     const SizedBox(
                       height: 30,
                     ),
@@ -101,50 +100,27 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       height: 80,
       width: 80,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: FloatingActionButton(
-              backgroundColor: primary,
-              child: const Text(
-                "Entrar",
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
-              ),
-              onPressed: () {
-                _submit();
-              },
-            ),
+      child: FloatingActionButton(
+        backgroundColor: primary,
+        child: const Text(
+          "Entrar",
+          style: TextStyle(
+            fontSize: 18.0,
           ),
-          const SizedBox(height: 34),
-          TextButton(
-            child: Text(
-              "Recuperar Senha",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.white,
-              ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginTokenPage()),
-              );
-            },
-          ),
-        ],
+        ),
+        onPressed: () {
+          _submit();
+        },
       ),
     );
   }
 
-  Padding buildPassword() {
+  Padding buildToken() {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30),
       child: TextFormField(
         style: const TextStyle(color: Colors.black),
-        controller: _passwordController,
+        controller: _tokenController,
         decoration: const InputDecoration(
           hintStyle: TextStyle(
             color: Colors.grey,
@@ -153,7 +129,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           filled: true,
           fillColor: Colors.white,
-          hintText: "Senha",
+          hintText: "Token",
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(90.0)),
               borderSide: BorderSide(
@@ -168,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
         obscureText: true,
         validator: (text) {
           if (text!.isEmpty || text.length < 6) {
-            return "Senha inválida!";
+            return "Token inválido!";
           }
         },
       ),
