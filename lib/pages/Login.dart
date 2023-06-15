@@ -101,40 +101,20 @@ class _LoginPageState extends State<LoginPage> {
     return SizedBox(
       height: 80,
       width: 80,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: FloatingActionButton(
-              backgroundColor: primary,
-              child: const Text(
-                "Entrar",
-                style: TextStyle(
-                  fontSize: 18.0,
-                ),
-              ),
-              onPressed: () {
-                _submit();
-              },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 0),
+        child: FloatingActionButton(
+          backgroundColor: primary,
+          child: const Text(
+            "Entrar",
+            style: TextStyle(
+              fontSize: 18.0,
             ),
           ),
-          const SizedBox(height: 34),
-          TextButton(
-            child: Text(
-              "Recuperar Senha",
-              style: TextStyle(
-                fontSize: 16.0,
-                color: Colors.white,
-              ),
-            ),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginTokenPage()),
-              );
-            },
-          ),
-        ],
+          onPressed: () {
+            _submit();
+          },
+        ),
       ),
     );
   }

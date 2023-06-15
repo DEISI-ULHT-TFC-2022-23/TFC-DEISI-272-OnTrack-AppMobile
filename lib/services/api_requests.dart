@@ -8,10 +8,10 @@ import 'package:tfc_ontack/User.dart';
 import '../UnidadeCurricular.dart';
 
 
-const _servidorOnTrackAPIEndpoint = '';
+const _servidorOnTrackAPIEndpoint = 'https://localhost:8080/api/v1';
 
 Future<List<UnidadeCurricular>> fetchUnidadesFromAPI() async {
-  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/unidades-curriculares'));
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/1/unidades-curriculares/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
     List<UnidadeCurricular> unidades = [];

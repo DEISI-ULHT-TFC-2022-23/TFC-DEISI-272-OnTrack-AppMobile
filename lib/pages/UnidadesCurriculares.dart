@@ -16,7 +16,6 @@ class UnidadesCurriculares extends StatefulWidget {
 class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   List<int> semestres = [1, 2, 3];
 
-
   String tituloTile(int semestre) {
     if (semestre == 1) {
       return "1ºSemestre";
@@ -60,49 +59,47 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   FutureBuilder<List<UnidadeCurricular>> listView() {
     return FutureBuilder<List<UnidadeCurricular>>(
       future: fetchUnidadesFromAPI(),
-      builder: (BuildContext context, AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
-        } else if (snapshot.hasError) {
-          return Text('Erro ao recolher os dados: ${snapshot.error}');
+      builder: (BuildContext context,
+          AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
+        List<UnidadeCurricular> unidades = [];
+        if (snapshot.hasData) {
+          unidades = snapshot.data!;
         } else {
-          List<UnidadeCurricular> unidades = snapshot.data!;
-
-          return ListView.builder(
-            itemCount: semestres.length,
-            itemBuilder: (BuildContext context, int index) {
-              return ExpansionTile(
-                textColor: primary,
-                title: Text(
-                  tituloTile(semestres[index]),
-                  style: const TextStyle(fontWeight: FontWeight.bold),
-                ),
-                children: [
-                  ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: unidades.length,
-                    itemBuilder: (BuildContext context, int disciplinaIndex) {
-                      Color borda = Colors.grey;
-                      UnidadeCurricular aux = unidades[disciplinaIndex];
-                      if (semestres[index] == aux.semestre) {
-                        return buildListTile(borda, aux, context);
-                      } else {
-                        return Container();
-                      }
-                    },
-                  ),
-                ],
-              );
-            },
-          );
+          return Text('Erro ao recolher os dados: ${snapshot.error}');
         }
+        return ListView.builder(
+          itemCount: semestres.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ExpansionTile(
+              textColor: primary,
+              title: Text(
+                tituloTile(semestres[index]),
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+              children: [
+                ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: unidades.length,
+                  itemBuilder: (BuildContext context, int disciplinaIndex) {
+                    Color borda = Colors.grey;
+                    UnidadeCurricular aux = unidades[disciplinaIndex];
+                    if (semestres[index] == aux.semestre) {
+                      return buildListTile(borda, aux, context);
+                    } else {
+                      return Container();
+                    }
+                  },
+                ),
+              ],
+            );
+          },
+        );
       },
     );
   }
 
-
-
-  ListTile buildListTile(Color borda, UnidadeCurricular aux, BuildContext context) {
+  ListTile buildListTile(
+      Color borda, UnidadeCurricular aux, BuildContext context) {
     return ListTile(
       title: SizedBox(
         height: 65,
@@ -128,7 +125,10 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                 Expanded(
                   child: Text(
                     aux.nome,
-                    style: const TextStyle(letterSpacing: 1, fontSize: 12, overflow: TextOverflow.ellipsis),
+                    style: const TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 12,
+                        overflow: TextOverflow.ellipsis),
                   ),
                 ),
               ],
