@@ -144,16 +144,6 @@ class _SelectUnidadesCurricularesState
                   );
                 },
               ),
-              Positioned(
-                bottom: 16,
-                right: 16,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    // Lógica para submeter
-                  },
-                  child: Icon(Icons.check),
-                ),
-              ),
             ],
           );
         } else {
@@ -192,7 +182,6 @@ class _SelectUnidadesCurricularesState
               );
             }
           });
-
         }
       },
       child: Text('Submeter'),
@@ -204,7 +193,16 @@ class _SelectUnidadesCurricularesState
     return Column(
       children: [
         listView(),
-        buildBotaoSubmeter(context)
+        Positioned(
+          bottom: 16,
+          right: 16,
+          child: FloatingActionButton(
+            onPressed: () {
+              // Lógica para submeter
+            },
+            child: Icon(Icons.check),
+          ),
+        ),
       ],
     );
   }
