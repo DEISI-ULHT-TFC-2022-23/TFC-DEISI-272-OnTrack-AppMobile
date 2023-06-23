@@ -8,11 +8,11 @@ import 'package:tfc_ontack/services/api_requests.dart';
 
 import '../static/Colors/Colors.dart';
 
-
 List<int> unidadesSelecionadas = [];
 
 class SelectUnidadesCurriculares extends StatefulWidget {
   final User user;
+
   SelectUnidadesCurriculares(this.user);
 
   @override
@@ -102,49 +102,50 @@ class _SelectUnidadesCurricularesState
     }
   }
 
-  FutureBuilder<List<UnidadeCurricular>> listView(){
+  FutureBuilder<List<UnidadeCurricular>> listView() {
     return FutureBuilder<List<UnidadeCurricular>>(
       future: fetchAllUnidadesFromAPI(1),
-      builder: (BuildContext context, AsyncSnapshot<List<UnidadeCurricular>> snapshot){
+      builder: (BuildContext context,
+          AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          if(snapshot.error is TimeoutException){
+          if (snapshot.error is TimeoutException) {
             return const Text('Tempo de conexão excedido');
           }
           return Text('Erro ao recolher os dados: ${snapshot.error}');
         } else if (snapshot.hasData) {
           List<UnidadeCurricular> unidades = snapshot.data!;
-          return Stack(
-            children: [
-              ListView.builder(
-                itemCount: anos.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ExpansionTile(
-                    textColor: primary,
-                    title: Text(
-                      tituloTile(anos[index]),
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.8,
+            width: MediaQuery.of(context).size.width,
+            child: ListView.builder(
+              itemCount: anos.length,
+              itemBuilder: (BuildContext context, int index) {
+                return ExpansionTile(
+                  textColor: primary,
+                  title: Text(
+                    tituloTile(anos[index]),
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  children: [
+                    ListView.builder(
+                      controller: ScrollController(keepScrollOffset: true),
+                      shrinkWrap: true,
+                      itemCount: unidades.length,
+                      itemBuilder: (BuildContext context, int disciplinaIndex) {
+                        UnidadeCurricular aux = unidades[disciplinaIndex];
+                        if (anos[index] == aux.ano) {
+                          return WidgetTile(unidadeCurricular: aux);
+                        } else {
+                          return Container();
+                        }
+                      },
                     ),
-                    children: [
-                      ListView.builder(
-                        controller: ScrollController(keepScrollOffset: true),
-                        shrinkWrap: true,
-                        itemCount: unidades.length,
-                        itemBuilder: (BuildContext context, int disciplinaIndex) {
-                          UnidadeCurricular aux = unidades[disciplinaIndex];
-                          if (anos[index] == aux.ano) {
-                            return WidgetTile(unidadeCurricular: aux);
-                          } else {
-                            return Container();
-                          }
-                        },
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
+                  ],
+                );
+              },
+            ),
           );
         } else {
           return const Text('Dados não encontrados');
@@ -153,30 +154,36 @@ class _SelectUnidadesCurricularesState
     );
   }
 
-  FloatingActionButton buildBotaoSubmeter(BuildContext context) {
-    return FloatingActionButton(
+  ElevatedButton buildBotaoSubmeter(BuildContext context) {
+    return ElevatedButton (
       onPressed: () {
-        if(unidadesSelecionadas.isEmpty){
+        if (unidadesSelecionadas.isEmpty) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Center(child: Text('Selecione pelo menos 1 Unidade Curricular!', style: TextStyle(fontSize: 20))),
+              content: Center(
+                  child: Text('Selecione pelo menos 1 Unidade Curricular!',
+                      style: TextStyle(fontSize: 20))),
               backgroundColor: Colors.red,
             ),
           );
         } else {
           addUCsProfessor(unidadesSelecionadas, widget.user.id).then((value) {
-            if(value){
+            if (value) {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Center(child: Text('Submetido com sucesso', style: TextStyle(fontSize: 20))),
+                  content: Center(
+                      child: Text('Submetido com sucesso',
+                          style: TextStyle(fontSize: 20))),
                   backgroundColor: Colors.green,
                 ),
               );
               unidadesSelecionadas.clear();
-            }else {
+            } else {
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
-                  content: Center(child: Text('Erro ao submeter', style: TextStyle(fontSize: 20))),
+                  content: Center(
+                      child: Text('Erro ao submeter',
+                          style: TextStyle(fontSize: 20))),
                   backgroundColor: Colors.red,
                 ),
               );
@@ -185,6 +192,12 @@ class _SelectUnidadesCurricularesState
         }
       },
       child: Text('Submeter'),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+      ),
     );
   }
 
@@ -193,24 +206,15 @@ class _SelectUnidadesCurricularesState
     return Column(
       children: [
         listView(),
-        Positioned(
-          bottom: 16,
-          right: 16,
-          child: FloatingActionButton(
-            onPressed: () {
-              // Lógica para submeter
-            },
-            child: Icon(Icons.check),
-          ),
-        ),
+        buildBotaoSubmeter(context),
       ],
     );
   }
-
 }
 
 class WidgetTile extends StatefulWidget {
   final UnidadeCurricular unidadeCurricular;
+
   const WidgetTile({super.key, required this.unidadeCurricular});
 
   @override
@@ -247,7 +251,8 @@ class _WidgetTileState extends State<WidgetTile> {
                 ),
               ),
               Checkbox(
-                value: unidadesSelecionadas.contains(widget.unidadeCurricular.id),
+                value:
+                    unidadesSelecionadas.contains(widget.unidadeCurricular.id),
                 onChanged: (selected) {
                   setState(() {
                     if (selected != null && selected) {
@@ -265,4 +270,3 @@ class _WidgetTileState extends State<WidgetTile> {
     );
   }
 }
-
