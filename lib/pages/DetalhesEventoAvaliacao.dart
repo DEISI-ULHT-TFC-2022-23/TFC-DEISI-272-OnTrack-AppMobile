@@ -21,6 +21,7 @@ class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
 
   @override
   Widget build(BuildContext context) {
+    final dataOutput = eventoAvaliacao.dateTime.isAfter(DateTime.now()) ? '${eventoAvaliacao.dateTime.difference(DateTime.now()).inDays} dias' : 'Terminada';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes de Evento de Avaliação'),
@@ -88,7 +89,7 @@ class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
                 const Icon(Icons.date_range, color: Colors.orange),
                 const SizedBox(width: 5),
                 Text(
-                  'Horário: ${eventoAvaliacao.dateTime.day}/${eventoAvaliacao.dateTime.month}/${eventoAvaliacao.dateTime.year} ${eventoAvaliacao.dateTime.hour}:${eventoAvaliacao.dateTime.minute}',
+                  'Horário: ${eventoAvaliacao.dateTime.day}/${eventoAvaliacao.dateTime.month}/${eventoAvaliacao.dateTime.year} ${eventoAvaliacao.hora}',
                   style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                 ),
               ],
@@ -99,7 +100,7 @@ class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
                 const Icon(Icons.update_sharp, color: Colors.red),
                 const SizedBox(width: 5),
                 Text(
-                  "Tempo até ao evento: 2Dias",
+                  "Tempo até ao evento: $dataOutput",
                   style: TextStyle(fontSize: 18, color: Colors.grey[700]),
                 ),
               ],

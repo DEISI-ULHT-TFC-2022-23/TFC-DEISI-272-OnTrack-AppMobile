@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/services/api_requests.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
@@ -60,7 +61,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 const Icon(Icons.people, color: Colors.blue),
                 const SizedBox(width: 5),
                 Text(
-                  'Docente teoricas: ${unidadeCurricular.docenteTeoricas}',
+                  'Professor/a: ${unidadeCurricular.professor}',
                   style: TextStyle(
                     fontSize: 18,
                     color: Colors.grey[700],
@@ -68,6 +69,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 ),
               ],
             ),
+            /*
             const SizedBox(height: 15),
             Row(
               children: [
@@ -81,7 +83,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                   ),
                 ),
               ],
-            ),
+            ),*/
             const SizedBox(height: 15),
             Row(
               children: [
@@ -118,63 +120,81 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
               height: 10,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: unidadeCurricular.eventosDeAvaliacao.length,
-                itemBuilder: (context, index) {
-                  Color borda = Colors.grey;
-                  EventoAvaliacao avaliacao = unidadeCurricular.eventosDeAvaliacao[index];
-                  Icon realizado;
-                  if(avaliacao.getRealizado()){
-                    realizado = const Icon(Icons.check, color: Colors.green,);
-                  }else{
-                    realizado = const Icon(Icons.close, color: Colors.red,);
-                  }
-
-                  return SizedBox(
-                    height: 65,
-                    child: Card(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
-                          side: BorderSide(color: borda, width: 1)),
-                      child: ListTile(
-                        title: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2),
-                          child: Row(
-                            children: [
-                              realizado,
-                              Text(
-                                "${avaliacao.dateTime.day}/${avaliacao.dateTime.month}/${avaliacao.dateTime.year}",
-                                style: const TextStyle(fontSize: 14),
-                              ),
-                              const SizedBox(width: 20,),
-                              Text(
-                                avaliacao.tipoDeEvento,
-                                style: const TextStyle(fontSize: 14),
-                              )
-                            ],
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => DetalhesEventoAvaliacao(
-                                  eventoAvaliacao: avaliacao,
-                                ),
-                              ),
-                            );
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-              ),
+              child: listView(),
             )
           ],
         ),
       ),
+    );
+  }
+
+  FutureBuilder<List<EventoAvaliacao>> listView() {
+    return FutureBuilder<List<EventoAvaliacao>>(
+      future: fetchAvaliacoesFromAPI(unidadeCurricular.id),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          return Text('Erro ao buscar as avaliações: ${snapshot.error}');
+        } else if (snapshot.hasData) {
+          List<EventoAvaliacao> avaliacoes = snapshot.data!;
+          return ListView.builder(
+            itemCount: avaliacoes.length,
+            itemBuilder: (context, index) {
+              Color borda = Colors.grey;
+              EventoAvaliacao avaliacao = avaliacoes[index];
+              Icon realizado;
+              if(avaliacao.getRealizado()){
+                realizado = const Icon(Icons.check, color: Colors.green,);
+              }else{
+                realizado = const Icon(Icons.close, color: Colors.red,);
+              }
+
+              return SizedBox(
+                height: 65,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      side: BorderSide(color: borda, width: 1)),
+                  child: ListTile(
+                    title: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 2),
+                      child: Row(
+                        children: [
+                          realizado,
+                          Text(
+                            "${avaliacao.dateTime.day}/${avaliacao.dateTime.month}/${avaliacao.dateTime.year}",
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                          const SizedBox(width: 20,),
+                          Text(
+                            avaliacao.tipoDeEvento,
+                            style: const TextStyle(fontSize: 14),
+                          )
+                        ],
+                      ),
+                    ),
+                    onTap: () {
+                      setState(() {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetalhesEventoAvaliacao(
+                              eventoAvaliacao: avaliacao,
+                            ),
+                          ),
+                        );
+                      });
+                    },
+                  ),
+                ),
+              );
+            },
+          );
+        } else {
+          return Text('Dados não encontrados');
+        }
+      },
     );
   }
 }

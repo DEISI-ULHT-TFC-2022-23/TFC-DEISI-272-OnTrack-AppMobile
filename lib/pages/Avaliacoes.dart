@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/User.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
@@ -7,7 +8,8 @@ import '../services/api_requests.dart';
 import 'DetalhesEventoAvaliacao.dart';
 
 class Avaliacoes extends StatefulWidget {
-  const Avaliacoes({Key? key}) : super(key: key);
+  final User user;
+  const Avaliacoes(this.user, {Key? key}) : super(key: key);
 
   @override
   State<Avaliacoes> createState() => _AvaliacoesState();
@@ -51,7 +53,7 @@ class _AvaliacoesState extends State<Avaliacoes> {
 
   FutureBuilder<List<EventoAvaliacao>> _buildListView() {
     return FutureBuilder<List<EventoAvaliacao>>(
-      future: fetchAvaliacoesFromAPI(),
+      future: fetchAvaliacoesFromAPI(1),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator();
@@ -78,7 +80,7 @@ class _AvaliacoesState extends State<Avaliacoes> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text("${evento.dateTime.day}/${evento.dateTime.month}/${evento.dateTime.year}"),
-                      Text("${evento.dateTime.hour}:${evento.dateTime.minute}"),
+                      Text(evento.hora),
                     ],
                   ),
                   onTap: () {

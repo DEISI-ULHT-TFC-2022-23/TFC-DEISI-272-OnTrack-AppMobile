@@ -1,34 +1,38 @@
 class User {
+  late int _id;
   late String _nome;
   late String _email;
   String _curso;
   String _foto;
-  late int _ano;
-  late int _ects;
+  late String _codigo;
 
-  User(this._nome, this._email, this._curso, this._foto, this._ano, this._ects);
+  User(this._id, this._nome, this._email, this._curso, this._foto, this._codigo);
 
   factory User.fromJson(Map<String, dynamic> json) {
+    String foto = "images/avatar.jpg";
+    String curso = json['curso']['nome'];
+    String codigo = json['curso']['codigo'];
     return User(
+      json['id'],
       json['nome'],
       json['email'],
-      json['curso'],
-      json['foto'],
-      json['ano'],
-      json['ects'],
+      curso,
+      foto,
+      codigo,
     );
   }
 
-  int get ects => _ects;
 
-  set ects(int value) {
-    _ects = value;
+  int get id => _id;
+
+  set id(int value) {
+    _id = value;
   }
 
-  int get ano => _ano;
+  String get codigo => _codigo;
 
-  set ano(int value) {
-    _ano = value;
+  set codigo(String value) {
+    _codigo = value;
   }
 
   String get foto => _foto;

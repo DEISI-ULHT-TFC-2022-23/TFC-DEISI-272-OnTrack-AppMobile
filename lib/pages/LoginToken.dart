@@ -37,7 +37,7 @@ class _LoginTokenPageState extends State<LoginTokenPage> {
     // Login falhou, exibir mensagem de erro
     //}
     //User user = fetchUserFromAPI("1") as User;
-    User user = User("Rafael Paulo", "a22001810@alunos.ulht.pt", "Engenharia Informática","images/Me.jpg",3,140);
+    User user = User(1,"Rafael Paulo", "a22001810@alunos.ulht.pt", "Engenharia Informática","images/Me.jpg","LEI");
     Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(user: user,))); //Trocar pelo id vindo ao API
   }
 

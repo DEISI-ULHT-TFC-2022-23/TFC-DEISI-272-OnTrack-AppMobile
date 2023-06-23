@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/User.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
 
@@ -7,7 +10,8 @@ import '../services/api_requests.dart';
 import 'DetalhesUnidadeCurricular.dart';
 
 class UnidadesCurriculares extends StatefulWidget {
-  const UnidadesCurriculares({Key? key}) : super(key: key);
+  User user;
+  UnidadesCurriculares(this.user, {Key? key}) : super(key: key);
 
   @override
   State<UnidadesCurriculares> createState() => _UnidadesCurricularesState();
@@ -26,74 +30,49 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
     }
   }
 
-  /*ListView listView() {
-    return ListView.builder(
-      itemCount: semestres.length,
-      itemBuilder: (BuildContext context, int index) {
-        return ExpansionTile(
-          textColor: primary,
-          title: Text(
-            tituloTile(semestres[index]),
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          children: [
-            ListView.builder(
-              shrinkWrap: true,
-              itemCount: unidades.length,
-              itemBuilder: (BuildContext context, int disciplinaIndex) {
-                Color borda = Colors.grey;
-                UnidadeCurricular aux = unidades[disciplinaIndex];
-                if (semestres[index] == aux.semestre) {
-                  return buildListTile(borda, aux, context);
-                } else {
-                  return Container();
-                }
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }*/
-
   FutureBuilder<List<UnidadeCurricular>> listView() {
     return FutureBuilder<List<UnidadeCurricular>>(
-      future: fetchUnidadesFromAPI(),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
-        List<UnidadeCurricular> unidades = [];
-        if (snapshot.hasData) {
-          unidades = snapshot.data!;
-        } else {
+      future: fetchUnidadesFromAPI(widget.user.id),
+      builder: (BuildContext context, AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          if(snapshot.error is TimeoutException){
+            return const Text('Tempo de conexão excedido');
+          }
           return Text('Erro ao recolher os dados: ${snapshot.error}');
-        }
-        return ListView.builder(
-          itemCount: semestres.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ExpansionTile(
-              textColor: primary,
-              title: Text(
-                tituloTile(semestres[index]),
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              children: [
-                ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: unidades.length,
-                  itemBuilder: (BuildContext context, int disciplinaIndex) {
-                    Color borda = Colors.grey;
-                    UnidadeCurricular aux = unidades[disciplinaIndex];
-                    if (semestres[index] == aux.semestre) {
-                      return buildListTile(borda, aux, context);
-                    } else {
-                      return Container();
-                    }
-                  },
+        } else if (snapshot.hasData) {
+          List<UnidadeCurricular> unidades = snapshot.data!;
+          return ListView.builder(
+            itemCount: semestres.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ExpansionTile(
+                textColor: primary,
+                title: Text(
+                  tituloTile(semestres[index]),
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
-              ],
-            );
-          },
-        );
+                children: [
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: unidades.length,
+                    itemBuilder: (BuildContext context, int disciplinaIndex) {
+                      Color borda = Colors.grey;
+                      UnidadeCurricular aux = unidades[disciplinaIndex];
+                      if (semestres[index] == aux.semestre) {
+                        return buildListTile(borda, aux, context);
+                      } else {
+                        return Container();
+                      }
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        } else {
+          return const Text('Dados não encontrados');
+        }
       },
     );
   }

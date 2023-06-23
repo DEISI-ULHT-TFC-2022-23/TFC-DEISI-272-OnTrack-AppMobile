@@ -75,17 +75,9 @@ class _PerfilState extends State<Perfil> {
                   const SizedBox(height: 30,),
                   Row(
                     children: [
-                      const Icon(Icons.email, color: Colors.grey,),
+                      const Icon(Icons.email, color: Colors.green,),
                       const SizedBox(width: 5,),
                       Text("Email: ${user.email}"),
-                    ],
-                  ),
-                  const SizedBox(height: 10,),
-                  Row(
-                    children: [
-                      const Icon(Icons.calendar_today, color: Colors.grey,),
-                      const SizedBox(width: 5,),
-                      Text("Ano: ${user.ano}º"),
                     ],
                   ),
                   const SizedBox(height: 10,),
@@ -99,12 +91,11 @@ class _PerfilState extends State<Perfil> {
                   const SizedBox(height: 10,),
                   Row(
                     children: [
-                      const Icon(Icons.grade, color: Colors.amber,),
+                      const Icon(Icons.bookmark, color: Colors.amber,),
                       const SizedBox(width: 5,),
-                      Text("Ects: ${user.ects}/180"),
+                      Text("Código: ${user.codigo}"),
                     ],
                   ),
-
                 ],
               ),
             ),

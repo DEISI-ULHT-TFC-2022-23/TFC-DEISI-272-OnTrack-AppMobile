@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tfc_ontack/pages/Definicoes.dart';
 import 'package:tfc_ontack/pages/Notificacoes.dart';
 import 'package:tfc_ontack/pages/Perfil.dart';
+import 'package:tfc_ontack/pages/SelectUnidadesCurriculares.dart';
 import 'package:tfc_ontack/pages/UnidadesCurriculares.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/pages/Dashboard.dart';
@@ -20,8 +21,9 @@ class Pages extends StatefulWidget {
 
 class _PagesState extends State<Pages> {
   final User user;
-  int _selectedIndex = 0;
+  int _selectedIndex = 6;
   List<Widget>? _widgetOptions;
+
 
 
 
@@ -29,10 +31,11 @@ class _PagesState extends State<Pages> {
     _widgetOptions = <Widget>[
       const Dashboard(),
       Perfil(user),
-      const UnidadesCurriculares(),
-      const Avaliacoes(),
-      const Notificacoes(),
-      const Definicoes()
+      UnidadesCurriculares(user),
+      Avaliacoes(user),
+      Notificacoes(user),
+      Definicoes(),
+      SelectUnidadesCurriculares(user)
     ];
   }
 
@@ -45,7 +48,8 @@ class _PagesState extends State<Pages> {
     const Text("Unidades Curriculares"),
     const Text("Avaliações"),
     const Text("Notificações"),
-    const Text("Definições")
+    const Text("Definições"),
+    const Text("Selecionar Unidades Curriculares")
   ];
 
 

@@ -1,22 +1,30 @@
 import 'UnidadeCurricular.dart';
+import 'package:intl/intl.dart';
 
 class EventoAvaliacao{
+  late int id;
   late UnidadeCurricular unidadeCurricular;
   late String tipoDeEvento;
   late String metodoDeEntrega;
   late DateTime dateTime;
-  late bool realizado;
+  late String hora;
 
-  EventoAvaliacao({required this.unidadeCurricular, required this.tipoDeEvento,
-      required this.metodoDeEntrega, required this.dateTime, required this.realizado});
+  EventoAvaliacao({required this.id, required this.unidadeCurricular, required this.tipoDeEvento,
+      required this.metodoDeEntrega, required this.dateTime, required this.hora});
 
   factory EventoAvaliacao.fromJson(Map<String, dynamic> json) {
+    UnidadeCurricular unidadeCurricular = UnidadeCurricular.fromJson(json['unidadeCurricular']);
+    String dataAvaliacaoString = json['data'];
+    DateFormat inputFormat = DateFormat("dd/MM/yyyy");
+    DateTime dataAvaliacao = inputFormat.parse(dataAvaliacaoString);
+
     return EventoAvaliacao(
-      unidadeCurricular: json['unidadeCurricular'],
-      tipoDeEvento: json['tipoDeEvento'],
+      id: json['id'],
+      unidadeCurricular: unidadeCurricular,
+      tipoDeEvento: json['tipoDeAvaliacao'],
       metodoDeEntrega: json['metodoDeEntrega'],
-      dateTime: DateTime.parse(json['data']),
-      realizado: json['realizado'],
+      dateTime: dataAvaliacao,
+      hora: json['hora']
     );
   }
 

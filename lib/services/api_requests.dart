@@ -8,10 +8,10 @@ import 'package:tfc_ontack/User.dart';
 import '../UnidadeCurricular.dart';
 
 
-const _servidorOnTrackAPIEndpoint = 'https://localhost:8080/api/v1';
+const _servidorOnTrackAPIEndpoint = 'http://192.168.1.70:8080/api/v1';
 
-Future<List<UnidadeCurricular>> fetchUnidadesFromAPI() async {
-  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/1/unidades-curriculares/list'));
+Future<List<UnidadeCurricular>> fetchUnidadesFromAPI(int userID) async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/$userID/unidades-curriculares/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
     List<UnidadeCurricular> unidades = [];
@@ -38,8 +38,8 @@ Future<User> fetchUserFromAPI(String id) async {
   }
 }
 
-Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI() async {
-  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/avaliacoes'));
+Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI(int id) async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/unidade_curricular/$id/avaliacoes/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
     List<EventoAvaliacao> avaliacoes = [];
@@ -49,17 +49,56 @@ Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI() async {
     }
     return avaliacoes;
   } else {
-    throw Exception('Erro ao buscar unidades da API');
+    throw Exception('Erro ao buscar avaliações da API');
   }
 }
 
-Future<bool> login(String email) async {
-  var url = _servidorOnTrackAPIEndpoint+'?email=$email';
-  var response = await http.get(Uri.parse(url));
+Future<List<UnidadeCurricular>> fetchAllUnidadesFromAPI(int idCurso) async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/curso/$idCurso/unidades-curriculares/list'));
   if (response.statusCode == 200) {
-    return true;
+    final data = jsonDecode(response.body);
+    List<UnidadeCurricular> unidades = [];
+    for (var unidadeData in data) {
+      UnidadeCurricular unidade = UnidadeCurricular.fromJson(unidadeData);
+      unidades.add(unidade);
+    }
+    return unidades;
+  } else {
+    throw Exception('Erro ao buscar todas as unidades da API');
+  }
+}
+
+Future<bool> addUCsProfessor(List<int> ucIds, int id) async {
+  var idAluno = id;
+
+  for(int id in ucIds) {
+    var response = await http.post(Uri.parse('${_servidorOnTrackAPIEndpoint}/aluno/${idAluno}/unidades-curriculares/add/$id'));
+    if (response.statusCode == 200) {
+      print('Unidade curricular adicionada com sucesso.');
+    } else {
+      print('Request failed with status: ${response.statusCode}.');
+      return false;
+    }
+  }
+  return true;
+}
+
+Future<int> login(String email, String password) async {
+  var body = jsonEncode(<String, String>{
+    'email': email,
+    'password': password,
+  });
+  var url = '$_servidorOnTrackAPIEndpoint/login';
+  var response = await http.post(Uri.parse(url),
+    headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    },
+    body: body,
+  );
+  if (response.statusCode == 200) {
+    var jsonResponse = jsonDecode(response.body);
+    return jsonResponse['id'];
   } else {
     throw Exception('Request failed with status: ${response.statusCode}.');
-    return false;
   }
 }

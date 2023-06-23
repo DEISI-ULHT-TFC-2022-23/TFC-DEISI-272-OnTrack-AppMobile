@@ -1,40 +1,33 @@
 import 'EventoAvaliacao.dart';
 
 class UnidadeCurricular {
+  late int id;
   late String nome;
-  late String docenteTeoricas;
-  late String docentePraticas;
+  late String professor;
   late int ano;
   late int semestre;
-  late int ects;
+  late int ects = 5;
   late List eventosDeAvaliacao = [];
 
   UnidadeCurricular(
-      {required this.nome,
-      required this.docenteTeoricas,
-      required this.docentePraticas,
+      {required this.id,
+      required this.nome,
+      required this.professor,
       required this.ano,
-      required this.semestre,
-      required this.ects,
-      required this.eventosDeAvaliacao});
+      required this.semestre});
 
   factory UnidadeCurricular.fromJson(Map<String, dynamic> json) {
-    List<EventoAvaliacao> eventos = [];
-    if (json['eventosAvaliacao'] != null) {
-      for (var eventoData in json['eventosAvaliacao']) {
-        EventoAvaliacao evento = EventoAvaliacao.fromJson(eventoData);
-        eventos.add(evento);
-      }
+    List professores = json['professores'] as List;
+    String professor = "";
+    for (var prof in professores) {
+      professor = prof['nome'];
     }
     return UnidadeCurricular(
-      nome: json['nome'],
-      docenteTeoricas: json['docenteTeoricas'],
-      docentePraticas: json['docentePraticas'],
-      ano: json['ano'],
-      semestre: json['semestre'],
-      ects: json['ects'],
-      eventosDeAvaliacao: eventos,
-    );
+        id: json['id'],
+        nome: json['nome'],
+        professor: professor,
+        ano: json['ano'],
+        semestre: json['semestre']);
   }
 
   List getEventos() {
