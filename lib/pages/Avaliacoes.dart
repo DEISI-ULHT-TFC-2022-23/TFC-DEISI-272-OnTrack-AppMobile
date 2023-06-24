@@ -17,46 +17,12 @@ class Avaliacoes extends StatefulWidget {
 
 class _AvaliacoesState extends State<Avaliacoes> {
 
-  /*ListView _buildListView() {
-    return ListView.builder(
-      itemCount: eventos.length,
-      itemBuilder: (context, index) {
-        EventoAvaliacao evento = eventos[index];
-        return Card(
-          child: ListTile(
-            title: Text(evento.unidadeCurricular.nome, style: TextStyle(fontWeight: FontWeight.bold, color: primary, overflow: TextOverflow.ellipsis),),
-            subtitle: Text(evento.tipoDeEvento),
-            trailing: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text("${evento.dateTime.day}/${evento.dateTime.month}/${evento.dateTime.year}",),
-                Text("${evento.dateTime.hour}:${evento.dateTime.minute}"),
-              ],
-            ),
-            onTap: () {
-              setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetalhesEventoAvaliacao(
-                      eventoAvaliacao: evento,
-                    ),
-                  ),
-                );
-              });
-            },
-          ),
-        );
-      },
-    );
-  }*/
-
   FutureBuilder<List<EventoAvaliacao>> _buildListView() {
     return FutureBuilder<List<EventoAvaliacao>>(
-      future: fetchAvaliacoesFromAPI(1),
+      future: fetchAllAvaliacoesFromAPI(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Erro ao buscar dados: ${snapshot.error}');
         } else {

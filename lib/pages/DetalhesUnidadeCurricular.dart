@@ -69,21 +69,6 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
                 ),
               ],
             ),
-            /*
-            const SizedBox(height: 15),
-            Row(
-              children: [
-                const Icon(Icons.people, color: Colors.blue),
-                const SizedBox(width: 5),
-                Text(
-                  'Docente práticas: ${unidadeCurricular.docentePraticas}',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ],
-            ),*/
             const SizedBox(height: 15),
             Row(
               children: [
@@ -109,7 +94,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
             const SizedBox(height: 15),
             const Center(
               child: Text(
-                "Eventos de avaliação",
+                "Avaliações",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
@@ -133,7 +118,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
       future: fetchAvaliacoesFromAPI(unidadeCurricular.id),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           return Text('Erro ao buscar as avaliações: ${snapshot.error}');
         } else if (snapshot.hasData) {
@@ -192,7 +177,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
             },
           );
         } else {
-          return Text('Dados não encontrados');
+          return const Text('Dados não encontrados');
         }
       },
     );

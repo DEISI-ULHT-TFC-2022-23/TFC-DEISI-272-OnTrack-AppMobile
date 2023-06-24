@@ -14,18 +14,24 @@ class _DefinicoesState extends State<Definicoes> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 40,),
+        const SizedBox(height: 24,),
         Row(
           children: [
-            SizedBox(width: 30,),
-            Text("Notificações",style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),),
+            const SizedBox(width: 30,),
+            const Expanded(
+              child: Text(
+                "Notificações",
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              ),
+            ),
             Switch(
-                value: _notificationEnabled,
-                onChanged: (bool newValue) {
-                  setState(() {
-                    _notificationEnabled = newValue;
-                  });
-                }),
+              value: _notificationEnabled,
+              onChanged: (bool newValue) {
+                setState(() {
+                  _notificationEnabled = newValue;
+                });
+              },
+            ),
           ],
         )
       ],

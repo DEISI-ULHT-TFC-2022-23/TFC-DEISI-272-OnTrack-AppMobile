@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:tfc_ontack/EventoAvaliacao.dart';
 import 'package:tfc_ontack/User.dart';
@@ -52,6 +51,20 @@ Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI(int id) async {
     throw Exception('Erro ao buscar avaliações da API');
   }
 }
+Future<List<EventoAvaliacao>> fetchAllAvaliacoesFromAPI() async {
+  final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/avaliacao/list'));
+  if (response.statusCode == 200) {
+    final data = jsonDecode(response.body);
+    List<EventoAvaliacao> avaliacoes = [];
+    for (var avaliacaoData in data) {
+      EventoAvaliacao unidade = EventoAvaliacao.fromJson(avaliacaoData);
+      avaliacoes.add(unidade);
+    }
+    return avaliacoes;
+  } else {
+    throw Exception('Erro ao buscar avaliações da API');
+  }
+}
 
 Future<List<UnidadeCurricular>> fetchAllUnidadesFromAPI(int idCurso) async {
   final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/curso/$idCurso/unidades-curriculares/list'));
@@ -68,7 +81,7 @@ Future<List<UnidadeCurricular>> fetchAllUnidadesFromAPI(int idCurso) async {
   }
 }
 
-Future<bool> addUCsProfessor(List<int> ucIds, int id) async {
+Future<bool> addUCsAluno(List<int> ucIds, int id) async {
   var idAluno = id;
 
   for(int id in ucIds) {

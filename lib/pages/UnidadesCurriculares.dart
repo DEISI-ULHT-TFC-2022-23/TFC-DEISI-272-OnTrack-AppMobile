@@ -11,6 +11,7 @@ import 'DetalhesUnidadeCurricular.dart';
 
 class UnidadesCurriculares extends StatefulWidget {
   User user;
+
   UnidadesCurriculares(this.user, {Key? key}) : super(key: key);
 
   @override
@@ -33,11 +34,12 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
   FutureBuilder<List<UnidadeCurricular>> listView() {
     return FutureBuilder<List<UnidadeCurricular>>(
       future: fetchUnidadesFromAPI(widget.user.id),
-      builder: (BuildContext context, AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
+      builder: (BuildContext context,
+          AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
-          if(snapshot.error is TimeoutException){
+          if (snapshot.error is TimeoutException) {
             return const Text('Tempo de conexão excedido');
           }
           return Text('Erro ao recolher os dados: ${snapshot.error}');
@@ -54,13 +56,14 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
                 ),
                 children: [
                   ListView.builder(
+                    controller: ScrollController(keepScrollOffset: true),
                     shrinkWrap: true,
                     itemCount: unidades.length,
                     itemBuilder: (BuildContext context, int disciplinaIndex) {
                       Color borda = Colors.grey;
                       UnidadeCurricular aux = unidades[disciplinaIndex];
                       if (semestres[index] == aux.semestre) {
-                        return buildListTile(borda, aux, context);
+                        return WidgetTile(borda: borda, unidadeCurricular: aux, context: context);
                       } else {
                         return Container();
                       }
@@ -77,58 +80,26 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
     );
   }
 
-  ListTile buildListTile(
-      Color borda, UnidadeCurricular aux, BuildContext context) {
-    return ListTile(
-      title: SizedBox(
-        height: 65,
-        child: Card(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-              side: BorderSide(color: borda, width: 1)),
-          child: ListTile(
-            title: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.menu_book_outlined,
-                  color: primary,
-                ),
-                const SizedBox(
-                  width: 20,
-                ),
-                buildTextSemestre(aux),
-                const SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Text(
-                    aux.nome,
-                    style: const TextStyle(
-                        letterSpacing: 1,
-                        fontSize: 12,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                ),
-              ],
-            ),
-            onTap: () {
-              setState(() {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetalhesUnidadeCurricular(
-                      unidadeCurricular: aux,
-                    ),
-                  ),
-                );
-              });
-            },
-          ),
-        ),
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: listView(),
     );
   }
+}
+
+class WidgetTile extends StatefulWidget {
+  UnidadeCurricular unidadeCurricular;
+  Color borda;
+  BuildContext context;
+
+  WidgetTile({super.key, required this.borda, required this.unidadeCurricular, required this.context});
+
+  @override
+  State<WidgetTile> createState() => _WidgetTileState();
+}
+
+class _WidgetTileState extends State<WidgetTile> {
 
   Text buildTextSemestre(UnidadeCurricular aux) {
     UnidadeCurricular x = aux;
@@ -152,8 +123,54 @@ class _UnidadesCurricularesState extends State<UnidadesCurriculares> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: listView(),
+    return ListTile(
+      title: SizedBox(
+        height: 65,
+        child: Card(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(color: widget.borda, width: 1)),
+          child: ListTile(
+            title: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.menu_book_outlined,
+                  color: primary,
+                ),
+                const SizedBox(
+                  width: 20,
+                ),
+                buildTextSemestre(widget.unidadeCurricular),
+                const SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Text(
+                    widget.unidadeCurricular.nome,
+                    style: const TextStyle(
+                        letterSpacing: 1,
+                        fontSize: 12,
+                        overflow: TextOverflow.ellipsis),
+                  ),
+                ),
+              ],
+            ),
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetalhesUnidadeCurricular(
+                      unidadeCurricular: widget.unidadeCurricular,
+                    ),
+                  ),
+                );
+              });
+            },
+          ),
+        ),
+      ),
     );
   }
 }

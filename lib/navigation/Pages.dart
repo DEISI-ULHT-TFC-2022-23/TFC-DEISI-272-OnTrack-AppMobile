@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tfc_ontack/pages/Carregamento.dart';
 import 'package:tfc_ontack/pages/Definicoes.dart';
 import 'package:tfc_ontack/pages/Notificacoes.dart';
 import 'package:tfc_ontack/pages/Perfil.dart';
@@ -21,10 +22,9 @@ class Pages extends StatefulWidget {
 
 class _PagesState extends State<Pages> {
   final User user;
-  int _selectedIndex = 6;
+  int _selectedIndex = 7;
   List<Widget>? _widgetOptions;
-
-
+  bool temUnidades = false;
 
 
   _PagesState(this.user){
@@ -34,13 +34,29 @@ class _PagesState extends State<Pages> {
       UnidadesCurriculares(user),
       Avaliacoes(user),
       Notificacoes(user),
-      Definicoes(),
-      SelectUnidadesCurriculares(user)
+      const Definicoes(),
+      SelectUnidadesCurriculares(user),
+      const Carregamento()
     ];
   }
 
 
-
+  @override
+  void initState() {
+    super.initState();
+    fetchUnidadesFromAPI(user.id).then((value) {
+      setState(() {
+        if(value.length > 0){
+          temUnidades = true;
+        }
+      });
+      if(temUnidades){
+        _selectedIndex = 0;
+      }else{
+        _selectedIndex = 6;
+      }
+    });
+  }
 
   static final List<Widget> _widgetTitle = <Widget>[
     const Text("Home"),
@@ -49,7 +65,8 @@ class _PagesState extends State<Pages> {
     const Text("Avaliações"),
     const Text("Notificações"),
     const Text("Definições"),
-    const Text("Selecionar Unidades Curriculares")
+    const Text("Selecionar Unidades Curriculares"),
+    const Text("Carregando...")
   ];
 
 

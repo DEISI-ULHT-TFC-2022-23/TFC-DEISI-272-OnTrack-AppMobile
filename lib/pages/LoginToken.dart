@@ -26,24 +26,20 @@ class _LoginTokenPageState extends State<LoginTokenPage> {
     final email = _emailController.text.trim();
     final token = _tokenController.text.trim();
 
-    _emailController.clear();
 
 
-    //final authService = AuthService();
-    //try {
-    //final token = await authService.login(email, password);
-    // Login bem-sucedido, salvar o token e navegar para a próxima tela
-    //} catch (e) {
-    // Login falhou, exibir mensagem de erro
-    //}
-    //User user = fetchUserFromAPI("1") as User;
-    User user = User(1,"Rafael Paulo", "a22001810@alunos.ulht.pt", "Engenharia Informática","images/Me.jpg","LEI");
+    var id = await login(email, token);
+
+    _tokenController.clear();
+
+    User user = await fetchUserFromAPI(id.toString());
     Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(user: user,))); //Trocar pelo id vindo ao API
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
