@@ -22,14 +22,13 @@ class Pages extends StatefulWidget {
 
 class _PagesState extends State<Pages> {
   final User user;
-  int _selectedIndex = 7;
+  int _selectedIndex = 6;
   List<Widget>? _widgetOptions;
   bool temUnidades = false;
 
 
   _PagesState(this.user){
     _widgetOptions = <Widget>[
-      const Dashboard(),
       Perfil(user),
       UnidadesCurriculares(user),
       Avaliacoes(user),
@@ -51,15 +50,14 @@ class _PagesState extends State<Pages> {
         }
       });
       if(temUnidades){
-        _selectedIndex = 0;
+        _selectedIndex = 2;
       }else{
-        _selectedIndex = 6;
+        _selectedIndex = 5;
       }
     });
   }
 
   static final List<Widget> _widgetTitle = <Widget>[
-    const Text("Home"),
     const Text("Perfil"),
     const Text("Unidades Curriculares"),
     const Text("Avaliações"),
@@ -108,20 +106,20 @@ class _PagesState extends State<Pages> {
                 backgroundColor: Colors.transparent,
               ),
             ),
-            ListTile(
+            /*ListTile(
                 leading: const Icon(Icons.home, color: Colors.black,),
                 title: const Text("Home", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
                   _onItemTapped(0);
                   Navigator.pop(context);
-                }),
+                }),*/
             ListTile(
                 leading: const Icon(Icons.account_circle, color: Colors.black,),
                 title: const Text("Perfil", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
-                  _onItemTapped(1);
+                  _onItemTapped(0);
                   Navigator.pop(context);
                 }),
             ListTile(
@@ -129,7 +127,7 @@ class _PagesState extends State<Pages> {
                 title: const Text("Unidades curriculares", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
-                  _onItemTapped(2);
+                  _onItemTapped(1);
                   Navigator.pop(context);
                 }),
             ListTile(
@@ -137,7 +135,7 @@ class _PagesState extends State<Pages> {
                 title: const Text("Avaliações", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
-                  _onItemTapped(3);
+                  _onItemTapped(2);
                   Navigator.pop(context);
                 }),
             ListTile(
@@ -145,7 +143,7 @@ class _PagesState extends State<Pages> {
                 title: const Text("Notificações", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
-                  _onItemTapped(4);
+                  _onItemTapped(3);
                   Navigator.pop(context);
                 }),
             ListTile(
@@ -153,7 +151,7 @@ class _PagesState extends State<Pages> {
                 title: const Text("Definições", style: TextStyle(fontWeight: FontWeight.bold),),
                 trailing: const Icon(Icons.arrow_forward, color: Colors.black,),
                 onTap: () {
-                  _onItemTapped(5);
+                  _onItemTapped(4);
                   Navigator.pop(context);
                 }),
             ListTile(

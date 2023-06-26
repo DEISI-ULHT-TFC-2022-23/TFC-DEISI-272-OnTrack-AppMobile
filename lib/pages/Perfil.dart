@@ -19,7 +19,6 @@ class _PerfilState extends State<Perfil> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
-
         children: [
           Container(
             decoration: BoxDecoration(
@@ -75,7 +74,7 @@ class _PerfilState extends State<Perfil> {
                   const SizedBox(height: 30,),
                   Row(
                     children: [
-                      const Icon(Icons.email, color: Colors.green,),
+                      const Icon(Icons.email, color: Colors.grey,),
                       const SizedBox(width: 5,),
                       Text("Email: ${user.email}"),
                     ],
@@ -83,9 +82,9 @@ class _PerfilState extends State<Perfil> {
                   const SizedBox(height: 10,),
                   Row(
                     children: [
-                      const Icon(Icons.school, color: Colors.grey,),
+                      const Icon(Icons.school, color: Colors.redAccent,),
                       const SizedBox(width: 5,),
-                      Text("Curso: ${user.curso}"),
+                      Expanded(child: Text("Curso: ${user.curso}",overflow: TextOverflow.visible,)),
                     ],
                   ),
                   const SizedBox(height: 10,),

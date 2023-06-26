@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/User.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
-import 'package:tfc_ontack/EventoAvaliacao.dart';
-import 'package:tfc_ontack/UnidadeCurricular.dart';
 
+import '../Avaliacao.dart';
 import '../services/api_requests.dart';
-import 'DetalhesEventoAvaliacao.dart';
+import 'DetalhesAvaliacao.dart';
 
 class Avaliacoes extends StatefulWidget {
   final User user;
@@ -17,8 +16,8 @@ class Avaliacoes extends StatefulWidget {
 
 class _AvaliacoesState extends State<Avaliacoes> {
 
-  FutureBuilder<List<EventoAvaliacao>> _buildListView() {
-    return FutureBuilder<List<EventoAvaliacao>>(
+  FutureBuilder<List<Avaliacao>> _buildListView() {
+    return FutureBuilder<List<Avaliacao>>(
       future: fetchAllAvaliacoesFromAPI(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -26,27 +25,42 @@ class _AvaliacoesState extends State<Avaliacoes> {
         } else if (snapshot.hasError) {
           return Text('Erro ao buscar dados: ${snapshot.error}');
         } else {
-          List<EventoAvaliacao> eventos = snapshot.data!;
+          List<Avaliacao> avaliacoes = snapshot.data!;
+          if (avaliacoes.isEmpty) {
+            return const Center(
+              child: Text(
+                "Não há avaliações",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 34,
+                ),
+              ),
+            );
+          }
+          List<Avaliacao> avaliacoesFuturas = avaliacoes.where((avaliacao) => avaliacao.dateTime.isAfter(DateTime.now())).toList();
+          avaliacoesFuturas.sort((a, b) => a.dateTime.compareTo(b.dateTime));
+
+
           return ListView.builder(
-            itemCount: eventos.length,
+            itemCount: avaliacoesFuturas.length,
             itemBuilder: (context, index) {
-              EventoAvaliacao evento = eventos[index];
+              Avaliacao avaliacao = avaliacoesFuturas[index];
               return Card(
                 child: ListTile(
                   title: Text(
-                    evento.unidadeCurricular.nome,
+                    avaliacao.unidadeCurricular.nome,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: primary,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  subtitle: Text(evento.tipoDeEvento),
+                  subtitle: Text(avaliacao.tipoDeEvento),
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("${evento.dateTime.day}/${evento.dateTime.month}/${evento.dateTime.year}"),
-                      Text(evento.hora),
+                      Text("${avaliacao.dateTime.day}/${avaliacao.dateTime.month}/${avaliacao.dateTime.year}"),
+                      Text(avaliacao.hora),
                     ],
                   ),
                   onTap: () {
@@ -54,8 +68,8 @@ class _AvaliacoesState extends State<Avaliacoes> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DetalhesEventoAvaliacao(
-                            eventoAvaliacao: evento,
+                          builder: (context) => DetalhesAvaliacao(
+                            eventoAvaliacao: avaliacao,
                           ),
                         ),
                       );

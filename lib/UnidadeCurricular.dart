@@ -1,4 +1,3 @@
-import 'EventoAvaliacao.dart';
 
 class UnidadeCurricular {
   late int id;
@@ -14,7 +13,8 @@ class UnidadeCurricular {
       required this.nome,
       required this.professor,
       required this.ano,
-      required this.semestre});
+      required this.semestre,
+      required this.ects});
 
   factory UnidadeCurricular.fromJson(Map<String, dynamic> json) {
     List professores = json['professores'] as List;
@@ -27,7 +27,8 @@ class UnidadeCurricular {
         nome: json['nome'],
         professor: professor,
         ano: json['ano'],
-        semestre: json['semestre']);
+        semestre: json['semestre'],
+        ects: json['ects']);
   }
 
   List getEventos() {

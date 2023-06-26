@@ -32,6 +32,7 @@ class _DefinicoesState extends State<Definicoes> {
                 });
               },
             ),
+            const SizedBox(width: 30,),
           ],
         )
       ],

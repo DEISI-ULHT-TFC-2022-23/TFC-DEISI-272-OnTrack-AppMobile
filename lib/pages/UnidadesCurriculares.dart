@@ -1,11 +1,8 @@
 import 'dart:async';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/User.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
 import 'package:tfc_ontack/UnidadeCurricular.dart';
-
 import '../services/api_requests.dart';
 import 'DetalhesUnidadeCurricular.dart';
 
@@ -128,7 +125,7 @@ class _WidgetTileState extends State<WidgetTile> {
         height: 65,
         child: Card(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               side: BorderSide(color: widget.borda, width: 1)),
           child: ListTile(
             title: Row(

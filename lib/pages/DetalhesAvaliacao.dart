@@ -1,30 +1,30 @@
 
 import 'package:flutter/material.dart';
 import 'package:tfc_ontack/static/Colors/Colors.dart';
-import 'package:tfc_ontack/EventoAvaliacao.dart';
+import 'package:tfc_ontack/Avaliacao.dart';
 
-class DetalhesEventoAvaliacao extends StatefulWidget {
-  EventoAvaliacao eventoAvaliacao;
+class DetalhesAvaliacao extends StatefulWidget {
+  Avaliacao eventoAvaliacao;
 
-  DetalhesEventoAvaliacao({Key? key, required this.eventoAvaliacao})
+  DetalhesAvaliacao({Key? key, required this.eventoAvaliacao})
       : super(key: key);
 
   @override
-  State<DetalhesEventoAvaliacao> createState() =>
-      _DetalhesEventoAvaliacaoState(eventoAvaliacao);
+  State<DetalhesAvaliacao> createState() =>
+      _DetalhesAvaliacaoState(eventoAvaliacao);
 }
 
-class _DetalhesEventoAvaliacaoState extends State<DetalhesEventoAvaliacao> {
-  EventoAvaliacao eventoAvaliacao;
+class _DetalhesAvaliacaoState extends State<DetalhesAvaliacao> {
+  Avaliacao eventoAvaliacao;
 
-  _DetalhesEventoAvaliacaoState(this.eventoAvaliacao);
+  _DetalhesAvaliacaoState(this.eventoAvaliacao);
 
   @override
   Widget build(BuildContext context) {
     final dataOutput = eventoAvaliacao.dateTime.isAfter(DateTime.now()) ? '${eventoAvaliacao.dateTime.difference(DateTime.now()).inDays} dias' : 'Terminada';
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes de Evento de Avaliação'),
+        title: const Text('Detalhes da Avaliação'),
         backgroundColor: primary,
       ),
       body: Padding(

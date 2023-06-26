@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:tfc_ontack/EventoAvaliacao.dart';
+import 'package:tfc_ontack/Avaliacao.dart';
 import 'package:tfc_ontack/User.dart';
 
 import '../UnidadeCurricular.dart';
@@ -37,13 +37,13 @@ Future<User> fetchUserFromAPI(String id) async {
   }
 }
 
-Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI(int id) async {
+Future<List<Avaliacao>> fetchAvaliacoesFromAPI(int id) async {
   final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/unidade_curricular/$id/avaliacoes/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    List<EventoAvaliacao> avaliacoes = [];
+    List<Avaliacao> avaliacoes = [];
     for (var avaliacaoData in data) {
-      EventoAvaliacao unidade = EventoAvaliacao.fromJson(avaliacaoData);
+      Avaliacao unidade = Avaliacao.fromJson(avaliacaoData);
       avaliacoes.add(unidade);
     }
     return avaliacoes;
@@ -51,13 +51,13 @@ Future<List<EventoAvaliacao>> fetchAvaliacoesFromAPI(int id) async {
     throw Exception('Erro ao buscar avaliações da API');
   }
 }
-Future<List<EventoAvaliacao>> fetchAllAvaliacoesFromAPI() async {
+Future<List<Avaliacao>> fetchAllAvaliacoesFromAPI() async {
   final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/avaliacao/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);
-    List<EventoAvaliacao> avaliacoes = [];
+    List<Avaliacao> avaliacoes = [];
     for (var avaliacaoData in data) {
-      EventoAvaliacao unidade = EventoAvaliacao.fromJson(avaliacaoData);
+      Avaliacao unidade = Avaliacao.fromJson(avaliacaoData);
       avaliacoes.add(unidade);
     }
     return avaliacoes;
@@ -66,7 +66,14 @@ Future<List<EventoAvaliacao>> fetchAllAvaliacoesFromAPI() async {
   }
 }
 
-Future<List<UnidadeCurricular>> fetchAllUnidadesFromAPI(int idCurso) async {
+Future<List<UnidadeCurricular>> fetchAllUnidadesFromAPI(String idCurso) async {
+  if(idCurso == "LEI"){
+    idCurso = "1";
+  }else if(idCurso == "LIG") {
+    idCurso = "2";
+  }else if(idCurso == "LEIRT") {
+    idCurso = "3";
+  }
   final response = await http.get(Uri.parse('${_servidorOnTrackAPIEndpoint}/curso/$idCurso/unidades-curriculares/list'));
   if (response.statusCode == 200) {
     final data = jsonDecode(response.body);

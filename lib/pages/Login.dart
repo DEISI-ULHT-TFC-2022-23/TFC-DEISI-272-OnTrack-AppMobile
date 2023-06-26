@@ -27,12 +27,52 @@ class _LoginPageState extends State<LoginPage> {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
-    var id = await login(email, password);
+    if (verificarEmail()) {
+      var id = await login(email, password).onError((error, stackTrace){
+        _emailController.clear();
+        _passwordController.clear();
+        throw ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Center(
+                child: Text('Utilizador não existe', style: TextStyle(fontSize: 20))),
+            backgroundColor: Colors.red,
+          ),
+        );
+      });
 
-    _passwordController.clear();
 
-    User user = await fetchUserFromAPI(id.toString());
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(user: user,))); //Trocar pelo id vindo ao API
+      _passwordController.clear();
+
+      User user = await fetchUserFromAPI(id.toString());
+      Navigator.push(context, MaterialPageRoute(builder: (context) => Pages(user: user,)));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Center(
+              child: Text('Email inválido', style: TextStyle(fontSize: 20))),
+          backgroundColor: Colors.red,
+        ),
+      );
+      _emailController.clear();
+      _passwordController.clear();
+    }
+  }
+
+  bool verificarEmail() {
+    if (_emailController.text.contains("@")) {
+      var email = _emailController.text.split("@");
+      if (email.length == 2) {
+        if (email[0].contains("a") && email[1].contains("alunos.ulht.pt")) {
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
   }
 
   @override

@@ -47,7 +47,7 @@ class _SelectUnidadesCurricularesState
 
   FutureBuilder<List<UnidadeCurricular>> listView() {
     return FutureBuilder<List<UnidadeCurricular>>(
-      future: fetchAllUnidadesFromAPI(1),
+      future: fetchAllUnidadesFromAPI(widget.user.codigo),
       builder: (BuildContext context,
           AsyncSnapshot<List<UnidadeCurricular>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
