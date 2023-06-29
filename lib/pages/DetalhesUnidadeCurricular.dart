@@ -34,7 +34,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
     }
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Detalhes de Unidade Curricular'),
+        title: Text(unidadeCurricular.nome),
         backgroundColor: primary,
       ),
       body: Padding(
@@ -42,28 +42,7 @@ class _DetalhesUnidadeCurricularState extends State<DetalhesUnidadeCurricular> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(
-              height: 10,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: Text(
-                    unidadeCurricular.nome,
-                    overflow: TextOverflow.visible,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 2,
-                    ),
-                    softWrap: true,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 40),
+            const SizedBox(height: 20),
             Row(
               children: [
                 const Icon(Icons.people, color: Colors.blue),
