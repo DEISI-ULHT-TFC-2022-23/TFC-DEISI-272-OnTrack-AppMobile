@@ -1,6 +1,6 @@
 # TFC-DEISI272-OnTrack-App Mobile
 
-- Desenvolvido por:[Rafael Paulo](https://github.com/rafaelpaulo22001810) e por [Telmo Panaças](https://github.com/telmo-a22001972)
+- Desenvolvido por: [Rafael Paulo](https://github.com/rafaelpaulo22001810) e por [Telmo Panaças](https://github.com/telmo-a22001972)
 
 - Este repositório destina-se apenas à componente da App mobile do TFC-DEISI-272-Solução de registo de momentos de avaliação.
 
